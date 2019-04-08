@@ -10,7 +10,7 @@ Add the following to your `ui-lovelace.yaml` file:
 
 ```yaml
 resources:
-  - url: /local/multiple-entity-row.js
+  - url: /local/xiaomi-vacuum-card.js
     type: js
 ```
 
@@ -23,7 +23,7 @@ resources:
 | background | string/bool | `img/vacuum.png` | Custom path/name of background image (set to false to disable background)
 | buttons | bool | `true` | Set to false to hide button row
 
-### Example
+### Examples
 
 ![xiaomi-vacuum-card](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/default.png)
 ![xiaomi-vacuum-card-no-buttons](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/no-buttons.png)
@@ -35,3 +35,5 @@ resources:
   background: custom/folder/and/file.png
   buttons: false
 ```
+
+[![BMC](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoff.ee/benct)
