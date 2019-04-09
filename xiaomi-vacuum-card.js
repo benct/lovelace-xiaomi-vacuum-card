@@ -8,6 +8,14 @@ class XiaomiVacuumCard extends Polymer.Element {
               background-position: center center;
               background-size: cover;
             }
+            .title {
+              font-size: 20px;
+              padding: 16px 16px 0;
+              text-align: center;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
             .content {
               cursor: pointer;
             }
@@ -42,6 +50,9 @@ class XiaomiVacuumCard extends Polymer.Element {
             }
           </style>
           <ha-card hass="[[_hass]]" config="[[_config]]" class="background" style="[[background]]">
+            <template is="dom-if" if="{{name}}">
+              <div class="title" style="[[text]]">[[name]]</div>
+            </template>
             <div class="content" on-click="moreInfo" style="[[padding]]">
               <div class="grid" style="[[text]]">
                 <div class="grid-content grid-left">
@@ -104,6 +115,8 @@ class XiaomiVacuumCard extends Polymer.Element {
     }
 
     getCardSize() {
+        if (this.name && this.buttons) return 5;
+        if (this.name || this.buttons) return 4;
         return 3;
     }
 
@@ -124,6 +137,10 @@ class XiaomiVacuumCard extends Polymer.Element {
 
         if (hass && this._config) {
             this.stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
+
+            if (this.stateObj) {
+                this.name = this._config.name !== false && (this._config.name || this.stateObj.attributes.friendly_name);
+            }
         }
     }
 }

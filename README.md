@@ -19,12 +19,17 @@ If you want to use the vacuum background image, add [img/vacuum.png](https://raw
 | ---- | ---- | ------- | -----------
 | type | string | **Required** | `custom:xiaomi-vacuum-card`
 | entity | string | **Required** | `vacuum.my_xiaomi_vacuum`
+| name | string/bool | `friendly_name` | Override entity friendly name (set to false to hide title)
 | background | string/bool | `img/vacuum.png` | Custom path/name of background image (set to false to disable background)
 | buttons | bool | `true` | Set to false to hide button row
 
 ### Examples
 
 ![xiaomi-vacuum-card](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/default.png)
+
+Hidden title/name
+
+![xiaomi-vacuum-card-no-title](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/no-title.png)
 
 Hidden button row
 
@@ -38,6 +43,7 @@ No background image
 - type: custom:xiaomi-vacuum-card
   entity: vacuum.xiaomi_vacuum_cleaner
   background: custom/folder/and/file.png
+  name: Xiaomi Vacuum
   buttons: false
 ```
 
