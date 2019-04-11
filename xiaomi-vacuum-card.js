@@ -91,13 +91,13 @@ class XiaomiVacuumCard extends Polymer.Element {
         `;
     }
 
-    moreInfo = this.fireEvent.bind(this, 'hass-more-info');
+    moreInfo() { this.fireEvent('hass-more-info'); }
 
-    startVaccum = this.callService.bind(this, 'start');
-    pauseVacuum = this.callService.bind(this, 'pause');
-    stopVacuum = this.callService.bind(this, 'stop');
-    locateVacuum = this.callService.bind(this, 'locate');
-    returnVacuum = this.callService.bind(this, 'return_to_base');
+    startVaccum() { this.callService('start'); }
+    pauseVacuum() { this.callService('pause'); }
+    stopVacuum() { this.callService('stop'); }
+    locateVacuum() { this.callService('locate'); }
+    returnVacuum() { this.callService('return_to_base'); }
 
     callService(service) {
         this._hass.callService('vacuum', service, {entity_id: this._config.entity});
