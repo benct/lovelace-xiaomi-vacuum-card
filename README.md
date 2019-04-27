@@ -17,6 +17,18 @@ resources:
 ```
 If you want to use the vacuum background image, add [img/vacuum.png](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/img/vacuum.png) to `<config>/www/img/`.
 
+### *(Optional)* Add to custom updater
+
+1. Make sure you have the [custom_updater](https://github.com/custom-components/custom_updater) component installed and working.
+
+2. Add a new reference under `card_urls` in your `custom_updater` configuration in `configuration.yaml`.
+
+  ```yaml
+  custom_updater:
+    card_urls:
+      - https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/tracker.json
+  ```
+
 ### Options
 
 | Name | Type | Default | Description
