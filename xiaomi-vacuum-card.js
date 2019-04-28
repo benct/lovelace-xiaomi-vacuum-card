@@ -60,12 +60,14 @@ class XiaomiVacuumCard extends Polymer.Element {
                   <div>Battery: [[stateObj.attributes.battery_level]] %</div>
                   <div>Mode: [[stateObj.attributes.fan_speed]]</div>
                 </div>
-                <div class="grid-content grid-right">
-                  <div>Main Brush: [[stateObj.attributes.main_brush_left]] h</div>
-                  <div>Side Brush: [[stateObj.attributes.side_brush_left]] h</div>
-                  <div>Filter: [[stateObj.attributes.filter_left]] h</div>
-                  <div>Sensor: [[stateObj.attributes.sensor_dirty_left]] h</div>
-                </div>
+                  <template is="dom-if" if="{{showdetails}}">
+                    <div class="grid-content grid-right" >
+                      <div>Main Brush: [[stateObj.attributes.main_brush_left]] h</div>
+                      <div>Side Brush: [[stateObj.attributes.side_brush_left]] h</div>
+                      <div>Filter: [[stateObj.attributes.filter_left]] h</div>
+                      <div>Sensor: [[stateObj.attributes.sensor_dirty_left]] h</div>
+                    </div>
+                </template>
               </div>
             </div>
             <template is="dom-if" if="{{buttons}}">
@@ -93,9 +95,18 @@ class XiaomiVacuumCard extends Polymer.Element {
 
     moreInfo() { this.fireEvent('hass-more-info'); }
 
-    startVaccum() { this.callService('start'); }
-    pauseVacuum() { this.callService('pause'); }
-    stopVacuum() { this.callService('stop'); }
+    startVaccum() { 
+      if ( this.vendor == 'ecovacs')  this.callService('turn_on'); 
+      else this.callService('start');
+    }
+    pauseVacuum() {
+      if ( this.vendor == 'ecovacs')  this.callService('stop'); 
+      else this.callService('pause');
+    }
+    stopVacuum() {
+      if ( this.vendor == 'ecovacs')  this.callService('turn_off'); 
+      else this.callService('stop');
+    }
     locateVacuum() { this.callService('locate'); }
     returnVacuum() { this.callService('return_to_base'); }
 
@@ -128,7 +139,10 @@ class XiaomiVacuumCard extends Polymer.Element {
         this.padding = `padding: ${this.buttons ? '16px 16px 4px' : '16px'}`;
         this.background = config.background !== false ? `background-image: url('/local/${config.background || 'img/vacuum.png'}')` : '';
         this.text = `color: ${config.background !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color)'}`;
-
+        
+        this.vendor = config.vendor;
+        this.showdetails = true;
+        if (this.vendor == 'ecovacs') this.showdetails = false;        
         this._config = config;
     }
 
