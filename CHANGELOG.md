@@ -9,10 +9,9 @@ All notable changes to this project will be documented in this file.
 - **Changed:** Accommodate future vendor implementations
 - **Fixed:** Use standardized name and path for background images (#4)
 
-
-- **Breaking**
-  - Option `background` renamed to `image`
-  - Custom image URLs must now include the `/local/` path prefix
+**Breaking**
+- Option `background` renamed to `image`
+- Custom image URLs must now include the `/local/` path prefix
 
 ## 1.1.1
 
