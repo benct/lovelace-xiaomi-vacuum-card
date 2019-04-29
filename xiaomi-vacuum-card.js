@@ -49,26 +49,24 @@ class XiaomiVacuumCard extends Polymer.Element {
               border-right: 2px solid var(--primary-color);
             }
           </style>
-          <ha-card hass="[[_hass]]" config="[[_config]]" class="background" style="[[background]]">
+          <ha-card hass="[[_hass]]" config="[[_config]]" class="background" style="[[backgroundImage]]">
             <template is="dom-if" if="{{name}}">
-              <div class="title" style="[[text]]">[[name]]</div>
+              <div class="title" style="[[contentText]]">[[name]]</div>
             </template>
-            <div class="content" on-click="moreInfo" style="[[padding]]">
-              <div class="grid" style="[[text]]">
-                <div class="grid-content grid-left">
-                  <div>Status: [[stateObj.attributes.status]]</div>
-                  <div>Battery: [[stateObj.attributes.battery_level]] %</div>
-                  <div>Mode: [[stateObj.attributes.fan_speed]]</div>
-                </div>
-                <template is="dom-if" if="{{showDetails}}">
-                  <div class="grid-content grid-right" >
-                    <div>Main Brush: [[stateObj.attributes.main_brush_left]] h</div>
-                    <div>Side Brush: [[stateObj.attributes.side_brush_left]] h</div>
-                    <div>Filter: [[stateObj.attributes.filter_left]] h</div>
-                    <div>Sensor: [[stateObj.attributes.sensor_dirty_left]] h</div>
-                  </div>
-                </template>
+            <div class="content grid" style="[[contentStyle]]" on-click="moreInfo">
+              <div class="grid-content grid-left">
+                <div>Status: [[stateObj.attributes.status]]</div>
+                <div>Battery: [[stateObj.attributes.battery_level]] %</div>
+                <div>Mode: [[stateObj.attributes.fan_speed]]</div>
               </div>
+              <template is="dom-if" if="{{showDetails}}">
+                <div class="grid-content grid-right" >
+                  <div>Main Brush: [[stateObj.attributes.main_brush_left]] h</div>
+                  <div>Side Brush: [[stateObj.attributes.side_brush_left]] h</div>
+                  <div>Filter: [[stateObj.attributes.filter_left]] h</div>
+                  <div>Sensor: [[stateObj.attributes.sensor_dirty_left]] h</div>
+                </div>
+              </template>
             </div>
             <template is="dom-if" if="{{showButtons}}">
               <div class="flex">
@@ -158,9 +156,9 @@ class XiaomiVacuumCard extends Polymer.Element {
         this.showDetails = vendor.details;
         this.showButtons = vendor.buttons && config.buttons !== false;
 
-        this.padding = `padding: ${this.showButtons ? '16px 16px 4px' : '16px'}`;
-        this.text = `color: ${config.background !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color)'}`;
-        this.background = config.background !== false ? `background-image: url('/local/${config.background || vendor.image}')` : '';
+        this.contentText = `color: ${config.background !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color)'}`;
+        this.contentStyle = `padding: ${this.showButtons ? '16px 16px 4px' : '16px'}; ${this.contentText}`;
+        this.backgroundImage = config.background !== false ? `background-image: url('/local/${config.background || vendor.image}')` : '';
 
         this._config = config;
     }
