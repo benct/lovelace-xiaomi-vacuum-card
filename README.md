@@ -38,6 +38,7 @@ custom_updater:
 | name | string/bool | `friendly_name` | Override entity friendly name (set to false to hide title)
 | background | string/bool | `img/vacuum.png` | Custom path/name of background image (set to false to disable background)
 | buttons | bool | `true` | Set to false to hide button row
+| vendor | string | xiaomi | Set to ecovacs to use with ecovacs
 
 ### Examples
 
