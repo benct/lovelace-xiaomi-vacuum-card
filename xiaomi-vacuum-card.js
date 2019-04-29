@@ -70,7 +70,7 @@ class XiaomiVacuumCard extends Polymer.Element {
                 </template>
               </div>
             </div>
-            <template is="dom-if" if="{{buttons}}">
+            <template is="dom-if" if="{{showButtons}}">
               <div class="flex">
                 <div class="button" on-tap="startVaccum">
                   <ha-icon icon="mdi:play"></ha-icon>
@@ -94,11 +94,11 @@ class XiaomiVacuumCard extends Polymer.Element {
     }
 
     moreInfo() { this.fireEvent('hass-more-info'); }
-    startVaccum() { this.callService(this.vendor === 'ecovacs' ? 'turn_on' : 'start'); }
-    pauseVacuum() { this.callService(this.vendor === 'ecovacs' ? 'stop' : 'pause'); }
-    stopVacuum() { this.callService(this.vendor === 'ecovacs' ? 'turn_off' : 'stop'); }
-    locateVacuum() { this.callService('locate'); }
-    returnVacuum() { this.callService('return_to_base'); }
+    startVaccum() { this.callService(this._config.service.start); }
+    pauseVacuum() { this.callService(this._config.service.pause); }
+    stopVacuum() { this.callService(this._config.service.stop); }
+    locateVacuum() { this.callService(this._config.service.locate); }
+    returnVacuum() { this.callService(this._config.service.return); }
 
     callService(service) {
         this._hass.callService('vacuum', service, {entity_id: this._config.entity});
@@ -116,22 +116,51 @@ class XiaomiVacuumCard extends Polymer.Element {
     }
 
     getCardSize() {
-        if (this.name && this.buttons) return 5;
-        if (this.name || this.buttons) return 4;
+        if (this.name && this.showButtons) return 5;
+        if (this.name || this.showButtons) return 4;
         return 3;
     }
 
     setConfig(config) {
+        const services = {
+            start: 'start',
+            pause: 'pause',
+            stop: 'stop',
+            locate: 'locate',
+            return: 'return_to_base',
+        };
+
+        const vendors = {
+            xiaomi: {
+                image: 'img/vacuum.png',
+                buttons: true,
+                details: true,
+            },
+            ecovacs: {
+                image: 'img/vacuum_ecovacs.png',
+                buttons: true,
+                details: false,
+                service: {
+                    start: 'turn_on',
+                    pause: 'stop',
+                    stop: 'turn_off',
+                },
+            }
+        };
+
         if (!config.entity) throw new Error('Please define an entity.');
         if (config.entity.split('.')[0] !== 'vacuum') throw new Error('Please define a vacuum entity.');
+        if (config.vendor && !config.vendor in vendors) throw new Error('Please define a valid vendor.');
 
-        this.buttons = config.buttons !== false;
-        this.padding = `padding: ${this.buttons ? '16px 16px 4px' : '16px'}`;
-        this.background = config.background !== false ? `background-image: url('/local/${config.background || 'img/vacuum.png'}')` : '';
+        const vendor = vendors[config.vendor] || vendors.xiaomi;
+        config.service = Object.assign({}, services, vendor.service);
+
+        this.showDetails = vendor.details;
+        this.showButtons = vendor.buttons && config.buttons !== false;
+
+        this.padding = `padding: ${this.showButtons ? '16px 16px 4px' : '16px'}`;
         this.text = `color: ${config.background !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color)'}`;
-
-        this.vendor = config.vendor || 'xiaomi';
-        this.showDetails = this.vendor !== 'ecovacs';
+        this.background = config.background !== false ? `background-image: url('/local/${config.background || vendor.image}')` : '';
 
         this._config = config;
     }

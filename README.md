@@ -1,6 +1,6 @@
 # xiaomi-vacuum-card
 
-Simple card for Xiaomi robot vaccums in Home Assistant's Lovelace UI
+Simple card for Xiaomi (and some other) robot vaccums in Home Assistant's Lovelace UI
 
 [![GH-release](https://img.shields.io/badge/version-1.1.1-red.svg?style=flat-square)](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card/commits/master)
@@ -38,7 +38,15 @@ custom_updater:
 | name | string/bool | `friendly_name` | Override entity friendly name (set to false to hide title)
 | background | string/bool | `img/vacuum.png` | Custom path/name of background image (set to false to disable background)
 | buttons | bool | `true` | Set to false to hide button row
-| vendor | string | xiaomi | Set to ecovacs to use with ecovacs
+
+### Other vendors
+
+This card was originally written for Xiaomi (Roborock) vacuum cleaners, but version 2.0 and later has added support for some other vendors too.
+If you think any more vendors should be added, feel free to open an issue or contribute directly with a PR.
+
+| Name | Type | Default | Description
+| ---- | ---- | ------- | -----------
+| vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `ecovacs`
 
 ### Examples
 
