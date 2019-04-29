@@ -35,9 +35,9 @@ custom_updater:
 | ---- | ---- | ------- | -----------
 | type | string | **Required** | `custom:xiaomi-vacuum-card`
 | entity | string | **Required** | `vacuum.my_xiaomi_vacuum`
-| name | string/bool | `friendly_name` | Override entity friendly name (set to false to hide title)
-| background | string/bool | `img/vacuum.png` | Custom path/name of background image (set to false to disable background)
-| buttons | bool | `true` | Set to false to hide button row
+| name | string/bool | `friendly_name` | Override entity friendly name (set to `false` to hide title)
+| image | string/bool | `/local/img/vacuum.png` | Custom path/name of background image (set to `false` to disable background)
+| buttons | bool | `true` | Set to `false` to hide button row
 
 ### Other vendors
 
@@ -67,9 +67,8 @@ No background image
 ```yaml
 - type: custom:xiaomi-vacuum-card
   entity: vacuum.xiaomi_vacuum_cleaner
-  background: custom/folder/and/file.png
+  background: /local/custom/folder/image.png
   name: Xiaomi Vacuum
-  buttons: false
 ```
 
 [![BMC](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoff.ee/benct)

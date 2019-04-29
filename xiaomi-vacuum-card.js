@@ -130,12 +130,12 @@ class XiaomiVacuumCard extends Polymer.Element {
 
         const vendors = {
             xiaomi: {
-                image: 'img/vacuum.png',
+                image: '/local/img/vacuum.png',
                 buttons: true,
                 details: true,
             },
             ecovacs: {
-                image: 'img/vacuum_ecovacs.png',
+                image: '/local/img/vacuum_ecovacs.png',
                 buttons: true,
                 details: false,
                 service: {
@@ -156,9 +156,9 @@ class XiaomiVacuumCard extends Polymer.Element {
         this.showDetails = vendor.details;
         this.showButtons = vendor.buttons && config.buttons !== false;
 
-        this.contentText = `color: ${config.background !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color)'}`;
+        this.contentText = `color: ${config.image !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color)'}`;
         this.contentStyle = `padding: ${this.showButtons ? '16px 16px 4px' : '16px'}; ${this.contentText}`;
-        this.backgroundImage = config.background !== false ? `background-image: url('/local/${config.background || vendor.image}')` : '';
+        this.backgroundImage = config.image !== false ? `background-image: url('${config.image || vendor.image}')` : '';
 
         this._config = config;
     }
