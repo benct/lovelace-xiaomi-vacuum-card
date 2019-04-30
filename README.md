@@ -2,7 +2,7 @@
 
 Simple card for Xiaomi (and some other) robot vaccums in Home Assistant's Lovelace UI
 
-[![GH-release](https://img.shields.io/badge/version-2.0.0-red.svg?style=flat-square)](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
+[![GH-release](https://img.shields.io/badge/version-2.1.0-red.svg?style=flat-square)](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card/commits/master)
 [![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card)
 
@@ -12,7 +12,7 @@ Add [xiaomi-vacuum-card.js](https://raw.githubusercontent.com/benct/lovelace-xia
 
 ```yaml
 resources:
-  - url: /local/xiaomi-vacuum-card.js?v=2.0.0
+  - url: /local/xiaomi-vacuum-card.js?v=2.1.0
     type: js
 ```
 If you want to use the vacuum background image, add [img/vacuum.png](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/img/vacuum.png) to `<config>/www/img/`.
@@ -38,6 +38,14 @@ custom_updater:
 | name | string/bool | `friendly_name` | Override entity friendly name (set to `false` to hide title)
 | image | string/bool | `/local/img/vacuum.png` | Custom path/name of background image (set to `false` to disable background)
 | buttons | bool | `true` | Set to `false` to hide button row
+| status_label | string | `Status` | Change status label
+| battery_label | string | `Battery` | Change Battery label
+| mode_label | string | `Mode` | Change Mode label
+| main_brush_label | string | `Main Brush` | Change Main Brush label
+| side_brush_label | string | `Side Brush` | Change Side Brush label
+| filter_label | string | `Filter` | Change Filter label
+| sensor_label | string | `Sensor` | Change Sensor label
+
 
 ### Other vendors
 
@@ -67,8 +75,16 @@ No background image
 ```yaml
 - type: custom:xiaomi-vacuum-card
   entity: vacuum.xiaomi_vacuum_cleaner
-  background: /local/custom/folder/image.png
+  image: /local/custom/folder/image.png
   name: Xiaomi Vacuum
+  status_label: Etat
+  battery_label: Batterie
+  mode_label: Puissance
+  main_brush_label: Brosse Principale
+  side_brush_label: Brosse Latérale
+  filter_label: Filtre
+  sensor_label: Capteurs
+  buttons: true
 ```
 
 [![BMC](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoff.ee/benct)

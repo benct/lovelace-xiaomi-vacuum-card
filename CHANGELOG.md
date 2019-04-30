@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.1.0
+ - **Added:** Allow translation for labels
+ - **Fixed:** Link to changelog in update system (#5)
+ - **Fixed:** Example in Readme
+
 ## 2.0.0
 
 - **Added:** Support for custom_updater component (#2)
