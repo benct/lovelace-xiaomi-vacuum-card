@@ -38,14 +38,20 @@ custom_updater:
 | name | string/bool | `friendly_name` | Override entity friendly name (set to `false` to hide title)
 | image | string/bool | `/local/img/vacuum.png` | Custom path/name of background image (set to `false` to disable background)
 | buttons | bool | `true` | Set to `false` to hide button row
-| status_label | string | `Status` | Change status label
-| battery_label | string | `Battery` | Change Battery label
-| mode_label | string | `Mode` | Change Mode label
-| main_brush_label | string | `Main Brush` | Change Main Brush label
-| side_brush_label | string | `Side Brush` | Change Side Brush label
-| filter_label | string | `Filter` | Change Filter label
-| sensor_label | string | `Sensor` | Change Sensor label
+| labels | object | *(see below)* | Customize or translate label names
 
+#### Labels object
+
+| Name | Type | Default | Description
+| ---- | ---- | ------- | -----------
+| status | string | `Status` | Change status label
+| battery | string | `Battery` | Change battery label
+| mode | string | `Mode` | Change mode label
+| main_brush | string | `Main Brush` | Change main brush label
+| side_brush | string | `Side Brush` | Change side brush label
+| filter | string | `Filter` | Change filter label
+| sensor | string | `Sensor` | Change sensor label
+| hours | string | `h` | Change hours label
 
 ### Other vendors
 
@@ -75,16 +81,17 @@ No background image
 ```yaml
 - type: custom:xiaomi-vacuum-card
   entity: vacuum.xiaomi_vacuum_cleaner
-  image: /local/custom/folder/image.png
+  image: /local/custom/folder/background.png
   name: Xiaomi Vacuum
-  status_label: Etat
-  battery_label: Batterie
-  mode_label: Puissance
-  main_brush_label: Brosse Principale
-  side_brush_label: Brosse Latérale
-  filter_label: Filtre
-  sensor_label: Capteurs
   buttons: true
+  labels:
+    status: Etat
+    battery: Batterie
+    mode: Puissance
+    main_brush: Brosse Principale
+    side_brush: Brosse Latérale
+    filter: Filtre
+    sensor: Capteurs
 ```
 
 [![BMC](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoff.ee/benct)

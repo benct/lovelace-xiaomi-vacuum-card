@@ -2,9 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## 2.1.0
- - **Added:** Allow translation for labels
- - **Fixed:** Link to changelog in update system (#5)
- - **Fixed:** Example in Readme
+
+- **Added:** Customization/translation of labels
+- **Fixed:** Link to changelog in custom_updater json (#5)
+- **Fixed:** Incorrect option name in readme example
 
 ## 2.0.0
 

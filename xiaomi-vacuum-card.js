@@ -55,16 +55,16 @@ class XiaomiVacuumCard extends Polymer.Element {
             </template>
             <div class="content grid" style="[[contentStyle]]" on-click="moreInfo">
               <div class="grid-content grid-left">
-                <div>[[status_label]]: [[stateObj.attributes.status]]</div>
-                <div>[[battery_label]]: [[stateObj.attributes.battery_level]] %</div>
-                <div>[[mode_label]]: [[stateObj.attributes.fan_speed]]</div>
+                <div>[[_config.labels.status]]: [[stateObj.attributes.status]]</div>
+                <div>[[_config.labels.battery]]: [[stateObj.attributes.battery_level]] %</div>
+                <div>[[_config.labels.mode]]: [[stateObj.attributes.fan_speed]]</div>
               </div>
               <template is="dom-if" if="{{showDetails}}">
                 <div class="grid-content grid-right" >
-                  <div>[[main_brush_label]]: [[stateObj.attributes.main_brush_left]] h</div>
-                  <div>[[side_brush_label]]: [[stateObj.attributes.side_brush_left]] h</div>
-                  <div>[[filter_label]]: [[stateObj.attributes.filter_left]] h</div>
-                  <div>[[sensor_label]]: [[stateObj.attributes.sensor_dirty_left]] h</div>
+                  <div>[[_config.labels.main_brush]]: [[stateObj.attributes.main_brush_left]] [[_config.labels.hours]]</div>
+                  <div>[[_config.labels.side_brush]]: [[stateObj.attributes.side_brush_left]] [[_config.labels.hours]]</div>
+                  <div>[[_config.labels.filter]]: [[stateObj.attributes.filter_left]] [[_config.labels.hours]]</div>
+                  <div>[[_config.labels.sensor]]: [[stateObj.attributes.sensor_dirty_left]] [[_config.labels.hours]]</div>
                 </div>
               </template>
             </div>
@@ -120,6 +120,17 @@ class XiaomiVacuumCard extends Polymer.Element {
     }
 
     setConfig(config) {
+        const labels = {
+            status: 'Status',
+            battery: 'Battery',
+            mode: 'Mode',
+            main_brush: 'Main Brush',
+            side_brush: 'Side Brush',
+            filter: 'Filter',
+            sensor: 'Sensor',
+            hours: 'h',
+        };
+
         const services = {
             start: 'start',
             pause: 'pause',
@@ -152,6 +163,7 @@ class XiaomiVacuumCard extends Polymer.Element {
 
         const vendor = vendors[config.vendor] || vendors.xiaomi;
         config.service = Object.assign({}, services, vendor.service);
+        config.labels = Object.assign({}, labels, config.labels);
 
         this.showDetails = vendor.details;
         this.showButtons = vendor.buttons && config.buttons !== false;
@@ -170,13 +182,6 @@ class XiaomiVacuumCard extends Polymer.Element {
 
             if (this.stateObj) {
                 this.name = this._config.name !== false && (this._config.name || this.stateObj.attributes.friendly_name);
-                this.status_label = this._config.status_label || 'Status';
-                this.battery_label = this._config.battery_label || 'Battery';
-                this.mode_label = this._config.mode_label || 'Mode';
-                this.main_brush_label = this._config.main_brush_label || 'Main Brush';
-                this.side_brush_label = this._config.side_brush_label || 'Side Brush';
-                this.filter_label = this._config.filter_label || 'Filter';
-                this.sensor_label = this._config.sensor_label || 'Sensor';
             }
         }
     }
