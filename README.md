@@ -6,7 +6,7 @@ Simple card for Xiaomi (and some other) robot vaccums in Home Assistant's Lovela
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card/commits/master)
 [![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card)
 
-### Setup
+## Setup
 
 Add [xiaomi-vacuum-card.js](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js) to your `<config>/www/` folder. Add the following to your `ui-lovelace.yaml` file:
 
@@ -29,7 +29,7 @@ custom_updater:
     - https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/tracker.json
 ```
 
-### Options
+## Options
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
@@ -40,7 +40,7 @@ custom_updater:
 | buttons | bool | `true` | Set to `false` to hide button row
 | labels | object | *(see below)* | Customize or translate label names
 
-#### Labels object
+### Labels object
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
@@ -62,7 +62,7 @@ If you think any more vendors should be added, feel free to open an issue or con
 | ---- | ---- | ------- | -----------
 | vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `ecovacs`
 
-### Examples
+## Examples
 
 ![xiaomi-vacuum-card](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/default.png)
 
@@ -94,8 +94,15 @@ No background image
     sensor: Capteurs
 ```
 
-[![BMC](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoff.ee/benct)
-
-### Disclaimer
+## Disclaimer
 
 This project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Xiaomi Corporation, or any of its subsidiaries or its affiliates. The official Xiaomi website can be found at https://www.mi.com/global/.
+
+## My cards
+
+[xiaomi-vacuum-card](https://github.com/benct/lovelace-xiaomi-vacuum-card) | 
+[github-entity-row](https://github.com/benct/lovelace-github-entity-row) | 
+[multiple-entity-row](https://github.com/benct/lovelace-multiple-entity-row) | 
+[attribute-entity-row](https://github.com/benct/lovelace-attribute-entity-row)
+
+[![BMC](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoff.ee/benct)
