@@ -1,9 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.2.0
+
+- **Added:** Clean spot button and service call (#7)
+- **Added:** Options to show/hide individual buttons
+
 ## 2.1.0
 
-- **Added:** Customization/translation of labels
+- **Added:** Customization/translation of labels (#6)
 - **Fixed:** Link to changelog in custom_updater json (#5)
 - **Fixed:** Incorrect option name in readme example
 

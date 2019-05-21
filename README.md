@@ -2,7 +2,7 @@
 
 Simple card for Xiaomi (and some other) robot vaccums in Home Assistant's Lovelace UI
 
-[![GH-release](https://img.shields.io/badge/version-2.1.0-red.svg?style=flat-square)](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
+[![GH-release](https://img.shields.io/badge/version-2.2.0-red.svg?style=flat-square)](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card/commits/master)
 [![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card)
 
@@ -12,7 +12,7 @@ Add [xiaomi-vacuum-card.js](https://raw.githubusercontent.com/benct/lovelace-xia
 
 ```yaml
 resources:
-  - url: /local/xiaomi-vacuum-card.js?v=2.1.0
+  - url: /local/xiaomi-vacuum-card.js?v=2.2.0
     type: js
 ```
 If you want to use the vacuum background image, add [img/vacuum.png](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/img/vacuum.png) to `<config>/www/img/`.
