@@ -37,8 +37,19 @@ custom_updater:
 | entity | string | **Required** | `vacuum.my_xiaomi_vacuum`
 | name | string/bool | `friendly_name` | Override entity friendly name (set to `false` to hide title)
 | image | string/bool | `/local/img/vacuum.png` | Custom path/name of background image (set to `false` to disable background)
-| buttons | bool | `true` | Set to `false` to hide button row
+| buttons | object/bool | *(see below)* | Set to `false` to hide button row
 | labels | object | *(see below)* | Customize or translate label names
+
+### Buttons object
+
+| Name | Type | Default | Description
+| ---- | ---- | ------- | -----------
+| start | bool | `true` | Show or hide start button
+| pause | bool | `true` | Show or hide pause button
+| stop | bool | `true` | Show or hide stop button
+| spot | bool | `false` | Show or hide clean spot button
+| locate | bool | `true` | Show or hide locate button
+| return | bool | `true` | Show or hide return to home button
 
 ### Labels object
 
@@ -61,6 +72,8 @@ If you think any more vendors should be added, feel free to open an issue or con
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
 | vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `ecovacs`
+
+*Note: Vendor `ecovacs` shows by default the clean spot button instead of the stop button*
 
 ## Examples
 

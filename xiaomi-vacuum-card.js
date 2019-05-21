@@ -70,21 +70,36 @@ class XiaomiVacuumCard extends Polymer.Element {
             </div>
             <template is="dom-if" if="{{showButtons}}">
               <div class="flex">
-                <div class="button" on-tap="startVaccum">
-                  <ha-icon icon="mdi:play"></ha-icon>
-                </div>
-                <div class="button" on-tap="pauseVacuum">
-                  <ha-icon icon="mdi:pause"></ha-icon>
-                </div>
-                <div class="button" on-tap="stopVacuum">
-                  <ha-icon icon="mdi:stop"></ha-icon>
-                </div>
-                <div class="button" on-tap="locateVacuum">
-                  <ha-icon icon="mdi:map-marker"></ha-icon>
-                </div>
-                <div class="button" on-tap="returnVacuum">
-                  <ha-icon icon="mdi:home-map-marker"></ha-icon>
-                </div>
+                <template is="dom-if" if="{{_config.buttons.start}}">
+                  <div class="button" on-tap="startVaccum">
+                    <ha-icon icon="mdi:play"></ha-icon>
+                  </div>
+                </template>
+                <template is="dom-if" if="{{_config.buttons.pause}}">
+                  <div class="button" on-tap="pauseVacuum">
+                    <ha-icon icon="mdi:pause"></ha-icon>
+                  </div>
+                </template>
+                <template is="dom-if" if="{{_config.buttons.stop}}">
+                  <div class="button" on-tap="stopVacuum">
+                    <ha-icon icon="mdi:stop"></ha-icon>
+                  </div>
+                </template>
+                <template is="dom-if" if="{{_config.buttons.spot}}">
+                  <div class="button" on-tap="cleanSpot">
+                    <ha-icon icon="mdi:broom"></ha-icon>
+                  </div>
+                </template>
+                <template is="dom-if" if="{{_config.buttons.locate}}">
+                  <div class="button" on-tap="locateVacuum">
+                    <ha-icon icon="mdi:map-marker"></ha-icon>
+                  </div>
+                </template>
+                <template is="dom-if" if="{{_config.buttons.return}}">
+                  <div class="button" on-tap="returnVacuum">
+                    <ha-icon icon="mdi:home-map-marker"></ha-icon>
+                  </div>
+                </template>
               </div>
             </template>
           </ha-card>
@@ -97,6 +112,7 @@ class XiaomiVacuumCard extends Polymer.Element {
     stopVacuum() { this.callService(this._config.service.stop); }
     locateVacuum() { this.callService(this._config.service.locate); }
     returnVacuum() { this.callService(this._config.service.return); }
+    cleanSpot() { this.callService(this._config.service.spot); }
 
     callService(service) {
         this._hass.callService('vacuum', service, {entity_id: this._config.entity});
@@ -137,18 +153,30 @@ class XiaomiVacuumCard extends Polymer.Element {
             stop: 'stop',
             locate: 'locate',
             return: 'return_to_base',
+            spot: 'clean_spot',
+        };
+
+        const buttons = {
+            start: true,
+            pause: true,
+            stop: true,
+            spot: false,
+            locate: true,
+            return: true,
         };
 
         const vendors = {
             xiaomi: {
                 image: '/local/img/vacuum.png',
-                buttons: true,
                 details: true,
             },
             ecovacs: {
                 image: '/local/img/vacuum_ecovacs.png',
-                buttons: true,
                 details: false,
+                buttons: {
+                    stop: false,
+                    spot: true,
+                },
                 service: {
                     start: 'turn_on',
                     pause: 'stop',
@@ -162,15 +190,18 @@ class XiaomiVacuumCard extends Polymer.Element {
         if (config.vendor && !config.vendor in vendors) throw new Error('Please define a valid vendor.');
 
         const vendor = vendors[config.vendor] || vendors.xiaomi;
-        config.service = Object.assign({}, services, vendor.service);
-        config.labels = Object.assign({}, labels, config.labels);
 
         this.showDetails = vendor.details;
-        this.showButtons = vendor.buttons && config.buttons !== false;
+        this.showButtons = config.buttons !== false;
+
+        config.service = Object.assign({}, services, vendor.service);
+        config.buttons = Object.assign({}, buttons, vendor.buttons, config.buttons);
+        config.labels = Object.assign({}, labels, config.labels);
 
         this.contentText = `color: ${config.image !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color)'}`;
         this.contentStyle = `padding: ${this.showButtons ? '16px 16px 4px' : '16px'}; ${this.contentText}`;
         this.backgroundImage = config.image !== false ? `background-image: url('${config.image || vendor.image}')` : '';
+
         this._config = config;
     }
 
