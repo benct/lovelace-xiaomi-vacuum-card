@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.2.1
+
+- **Fixed:** Wrong button color on light themes (#11)
+
 ## 2.2.0
 
 - **Added:** Clean spot button and service call (#7)
