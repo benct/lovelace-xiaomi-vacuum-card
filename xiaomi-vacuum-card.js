@@ -203,6 +203,21 @@ class XiaomiVacuumCard extends Polymer.Element {
                     pause: 'stop',
                     stop: 'turn_off',
                 },
+            },
+            ecovacs_ozmo: {
+                image: '/local/img/vacuum_ecovacs.png',
+                details: true,
+                service: {
+                    start: 'turn_on',
+                    pause: 'stop',
+                    stop: 'turn_off',
+                },
+                attributes: {
+                    main_brush: 'component_main_brush',
+                    side_brush: 'component_side_brush',
+                    filter: 'component_filter',
+                },
+                computeValue: v => (Number(v) / 100),
             }
         };
 
