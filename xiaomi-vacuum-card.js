@@ -217,7 +217,7 @@ class XiaomiVacuumCard extends Polymer.Element {
                     side_brush: 'component_side_brush',
                     filter: 'component_filter',
                 },
-                computeValue: v => (Number(v) / 100),
+                computeValue: v => Math.round(Number(v) / 100),
             }
         };
 
