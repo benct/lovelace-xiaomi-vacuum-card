@@ -180,6 +180,17 @@ class XiaomiVacuumCard extends Polymer.Element {
                 image: '/local/img/vacuum.png',
                 details: true,
             },
+            valetudo: {
+                image: '/local/img/vacuum.png',
+                details: true,
+                attributes: {
+                    status: 'state',
+                    main_brush: 'mainBrush',
+                    side_brush: 'sideBrush',
+                    filter: 'filter',
+                    sensor: 'sensor',
+                },
+            },
             ecovacs: {
                 image: '/local/img/vacuum_ecovacs.png',
                 details: false,
