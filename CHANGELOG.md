@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.3.0
+
+- **Added:** Support alternate attributes for Valetudo/Dustcloud firmware (#15)
+- **Added:** Support alternate attributes for Ecovacs Ozmo models (#17)
+- **Changed:** Improved general attribute and value handling
+
 ## 2.2.1
 
 - **Fixed:** Wrong button color on light themes (#11)
