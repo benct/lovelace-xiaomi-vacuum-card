@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.3.1
+
+- **Changed:** Vendor `ecovacs_ozmo` changed to more accurate `deebot` (#17)
+- **Changed:** Round computed numbers for `deebot` values
+- **Fixed:** Main value units showing as undefined
+
 ## 2.3.0
 
 - **Added:** Support alternate attributes for Valetudo/Dustcloud firmware (#15)
