@@ -204,7 +204,7 @@ class XiaomiVacuumCard extends Polymer.Element {
                     stop: 'turn_off',
                 },
             },
-            ecovacs_ozmo: {
+            deebot: {
                 image: '/local/img/vacuum_ecovacs.png',
                 details: true,
                 service: {
