@@ -235,12 +235,15 @@ class XiaomiVacuumCard extends Polymer.Element {
         config.attributes = Object.assign({}, attributes, vendor.attributes, config.attributes);
         config.labels = Object.assign({}, labels, config.labels);
 
-        this.getValue = (field, unit = '') => `${config.labels[field]}: ` + (config.attributes[field] in this.stateObj.attributes
-            ? this.stateObj.attributes[config.attributes[field]] + unit
-            : this._hass.localize('state.default.unavailable'));
+        this.getValue = (field, unit = '') => {
+            const value = (this.stateObj && config.attributes[field] in this.stateObj.attributes)
+                ? this.stateObj.attributes[config.attributes[field]] + unit
+                : (this._hass ? this._hass.localize('state.default.unavailable') : 'Unavailable');
+            return `${config.labels[field]}: ${value}`;
+        };
 
         this.computeValue = field => {
-            if (config.attributes[field] in this.stateObj.attributes) {
+            if (this.stateObj && config.attributes[field] in this.stateObj.attributes) {
                 const value = this.stateObj.attributes[config.attributes[field]];
                 return `${config.labels[field]}: ${vendor.computeValue ? vendor.computeValue(value) : value} ${config.labels.hours}`;
             } else {
