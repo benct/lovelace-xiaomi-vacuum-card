@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.3.2
+
+- **Fixed:** Error on undefined state objects
+
 ## 2.3.1
 
 - **Changed:** Vendor `ecovacs_ozmo` changed to more accurate `deebot` (#17)
