@@ -193,6 +193,14 @@ class XiaomiVacuumCard extends Polymer.Element {
                     sensor: 'sensor',
                 },
             },
+            robovac: {
+                image: '/local/img/vacuum.png',
+                details: false,
+                buttons: {
+                    stop: false,
+                    spot: true,
+                },
+            },
             ecovacs: {
                 image: '/local/img/vacuum_ecovacs.png',
                 details: false,
