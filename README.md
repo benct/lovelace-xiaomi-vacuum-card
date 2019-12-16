@@ -39,7 +39,7 @@ custom_updater:
 | name | string/bool | `friendly_name` | Override entity friendly name (set to `false` to hide title)
 | image | string/bool | `/local/img/vacuum.png` | Custom path/name of background image (set to `false` to disable background)
 | buttons | object/bool | *(see below)* | Set to `false` to hide button row
-| labels | object | *(see below)* | Customize or translate label names
+| labels | object/bool | *(see below)* | Set to `false` to hide details/labels
 
 ### Buttons object
 
@@ -53,6 +53,8 @@ custom_updater:
 | return | bool | `true` | Show or hide return to home button
 
 ### Labels object
+
+Customize or translate label names.
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
