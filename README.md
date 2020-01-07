@@ -9,26 +9,18 @@ Simple card for Xiaomi (and some other) robot vaccums in Home Assistant's Lovela
 
 ## Setup
 
-Add [xiaomi-vacuum-card.js](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js) to your `<config>/www/` folder. Add the following to your `ui-lovelace.yaml` file:
+Install using [HACS](https://hacs.xyz/), or add [xiaomi-vacuum-card.js](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
+to your `<config>/www/` folder and add the following to your `ui-lovelace.yaml` file:
 
 ```yaml
 resources:
   - url: /local/xiaomi-vacuum-card.js?v=2.4.0
-    type: js
+    type: module
 ```
-If you want to use the vacuum background image, add [img/vacuum.png](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/img/vacuum.png) to `<config>/www/img/`.
+If you want to use the vacuum background image, add [img/vacuum.png](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/img/vacuum.png)
+to `<config>/www/img/`.
 
-### *(Optional)* Add to custom updater
-
-1. Make sure you have the [custom_updater](https://github.com/custom-components/custom_updater) component installed and working.
-
-2. Add a new reference under `card_urls` in your `custom_updater` configuration in `configuration.yaml`.
-
-```yaml
-custom_updater:
-  card_urls:
-    - https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/tracker.json
-```
+Using HACS, you might need to set the `image` config to something like `/local/community/lovelace-xiaomi-vacuum-card/vacuum.png`.
 
 ## Options
 
