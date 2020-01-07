@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.4.0
+
+- **Added:** Option to hide all labels/details (#20)
+- **Added:** Vendor support for Robovac vacuums (#23)
+
 ## 2.3.2
 
 - **Fixed:** Error on undefined state objects
