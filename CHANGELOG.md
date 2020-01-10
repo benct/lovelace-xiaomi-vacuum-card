@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.0.0
+
+- **Changed:** Major refactoring and cleanup of code
+- **Changed:** Use LitElement instead of Polymer
+- **Added:** Support for HA Cast [https://cast.home-assistant.io](https://cast.home-assistant.io)
+- **Added:** Support custom button icons
+- **Added:** Support hiding specific vacuum attributes (#27)
+- **Added:** Vendor support for iRobot Roomba vacuums (#24)
+
 ## 2.4.0
 
 - **Added:** Option to hide all labels/details (#20)
