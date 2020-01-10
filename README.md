@@ -86,12 +86,26 @@ No background image
 
 ![xiaomi-vacuum-card-no-background](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/no-background.png)
 
+Simple config example:
+```yaml
+- type: custom:xiaomi-vacuum-card
+  entity: vacuum.xiaomi_vacuum_cleaner
+```
+
+Advanced configuration:
 ```yaml
 - type: custom:xiaomi-vacuum-card
   entity: vacuum.xiaomi_vacuum_cleaner
   image: /local/custom/folder/background.png
-  name: Xiaomi Vacuum
-  buttons: true
+  name: My Vacuum
+  vendor: xiaomi
+  buttons:
+    start: true
+    stop: true
+    locate: false
+  icons:
+    start: mdi:some-icon
+    stop: mdi:other-icon
   labels:
     status: Etat
     battery: Batterie
@@ -104,13 +118,14 @@ No background image
 
 ## Disclaimer
 
-This project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Xiaomi Corporation, or any of its subsidiaries or its affiliates. The official Xiaomi website can be found at https://www.mi.com/global/.
+This project is not affiliated, associated, authorized, endorsed by, or in any way officially connected with the Xiaomi Corporation,
+or any of its subsidiaries or its affiliates. The official Xiaomi website can be found at https://www.mi.com/global/.
 
 ## My cards
 
 [xiaomi-vacuum-card](https://github.com/benct/lovelace-xiaomi-vacuum-card) | 
-[github-entity-row](https://github.com/benct/lovelace-github-entity-row) | 
 [multiple-entity-row](https://github.com/benct/lovelace-multiple-entity-row) | 
-[attribute-entity-row](https://github.com/benct/lovelace-attribute-entity-row)
+[github-entity-row](https://github.com/benct/lovelace-github-entity-row) | 
+[~~attribute-entity-row~~](https://github.com/benct/lovelace-attribute-entity-row)
 
 [![BMC](https://www.buymeacoffee.com/assets/img/custom_images/white_img.png)](https://www.buymeacoff.ee/benct)
