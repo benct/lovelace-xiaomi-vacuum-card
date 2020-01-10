@@ -32,6 +32,7 @@ Using HACS, you might need to set the `image` config to something like `/local/c
 | image | string/bool | `/local/img/vacuum.png` | Custom path/name of background image (set to `false` to disable background)
 | buttons | object/bool | *(see below)* | Set to `false` to hide button row
 | labels | object/bool | *(see below)* | Set to `false` to hide details/labels
+| icons | object | | Set custom button icons (same keys as `buttons` object)
 
 ### Buttons object
 
@@ -66,7 +67,7 @@ If you think any more vendors should be added, feel free to open an issue or con
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
-| vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `valetudo`, `ecovacs`, `deebot`, `robovac`
+| vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `valetudo`, `ecovacs`, `deebot`, `robovac`, `roomba`
 
 *Note: Vendor `ecovacs` and `robovac` shows the clean spot button instead of the stop button by default*
 
