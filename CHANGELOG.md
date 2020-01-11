@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.0.1
+
+- **Fixed:** Incorrect unit on `roomba` boolean attribute values (#24)
+
 ## 3.0.0
 
 - **Changed:** Major refactoring and cleanup of code
