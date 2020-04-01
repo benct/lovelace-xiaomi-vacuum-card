@@ -108,8 +108,8 @@
             if (this.state.attributes[field] === undefined || this.state.attributes[field] === false) {
                 return null;
             } else if (this.stateObj && this.state.attributes[field] in this.stateObj.attributes) {
-                const computed = this.state.computeValue(this.stateObj.attributes[this.state.attributes[field]]);
-                const unit = typeof computed === 'number' ? ` ${this.state.labels.hours}` : '';
+                const computed = parseFloat(this.state.computeValue(this.stateObj.attributes[this.state.attributes[field]]));
+                const unit = ${this.state.labels.hours};
                 return `${this.state.labels[field]}: ${computed}${unit}`;
             } else {
                 return `${this.state.labels[field]}: - `;
