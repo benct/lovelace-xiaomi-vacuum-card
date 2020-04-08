@@ -101,7 +101,8 @@
             const value = (this.stateObj && this.state.attributes[field] in this.stateObj.attributes)
                 ? this.stateObj.attributes[this.state.attributes[field]] + unit
                 : (this._hass ? this._hass.localize('state.default.unavailable') : 'Unavailable');
-            return `${this.state.labels[field]}: ${value}`;
+            const customValue = this.state.labels[value] || null;
+            return `${this.state.labels[field]}: ${customValue || value}`;
         };
 
         computeValue(field) {
@@ -274,7 +275,7 @@
             this.style = {
                 text: `color: ${config.image !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color);'}`,
                 content: `padding: ${config.showButtons ? '16px 16px 4px' : '16px'};`,
-                background: config.image !== false ? `background-image: url('${config.image || vendor.image || '/local/img/vacuum.png'}')` : ''
+                background: config.background || config.image !== false ? `background-image: url('${config.image || vendor.image || '/local/img/vacuum.png'}')` : ''
             };
 
             this._config = config;
