@@ -74,7 +74,7 @@
                 <div class="grid-content grid-left">
                   <div>${this.getValue('status')}</div>
                   <div>${this.getValue('battery', ' %')}</div>
-                  <div>${this.getValue('mode')}</div>
+                  <div>${this.computeValue('mode')}</div>
                 </div>
                 ${this.state.showDetails ? html`
                 <div class="grid-content grid-right" >
@@ -206,6 +206,7 @@
                         side_brush: 'bin_full',
                         filter: false,
                         sensor: false,
+                        mode: false,
                     },
                     labels: {
                         main_brush: 'Bin Present',
