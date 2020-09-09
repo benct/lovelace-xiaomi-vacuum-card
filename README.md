@@ -73,7 +73,7 @@ If you think any more vendors should be added, feel free to open an issue or con
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
-| vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `valetudo`, `ecovacs`, `deebot`, `robovac`, `roomba`
+| vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `valetudo`, `ecovacs`, `deebot`, `deebot_slim`, `robovac`, `roomba`
 
 *Note: Vendor `ecovacs` and `robovac` shows the clean spot button instead of the stop button by default*
 

@@ -248,6 +248,20 @@
                         sensor: false,
                     },
                     computeValue: v => Math.round(Number(v) / 100),
+                },
+                deebot_slim: {
+                    image: '/local/img/vacuum_ecovacs.png',
+                    details: true,
+                    service: {
+                        start: 'turn_on',
+                        pause: 'stop',
+                        stop: 'turn_off',
+                    },
+                    attributes: {
+                        side_brush: 'component_side_brush',
+                        filter: 'component_filter',
+                        sensor: false,
+                    },
                 }
             };
 
