@@ -1,34 +1,39 @@
 # xiaomi-vacuum-card
 
-Simple card for Xiaomi (and some other) robot vaccums in Home Assistant's Lovelace UI
+Simple card for various robot vacuums in Home Assistant's Lovelace UI
 
 [![GH-release](https://img.shields.io/badge/version-3.0.1-red.svg?style=flat-square)](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card/commits/master)
 [![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/custom-components/hacs)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs)
 
-## Setup
+## Installation
 
 Manually add [xiaomi-vacuum-card.js](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
-to your `<config>/www/` folder and add the following to your `ui-lovelace.yaml` file:
+to your `<config>/www/` folder and add the following to the `configuration.yaml` file:
 ```yaml
-resources:
-  - url: /local/xiaomi-vacuum-card.js?v=3.0.1
-    type: module
+lovelace:
+  resources:
+    - url: /local/xiaomi-vacuum-card.js?v=3.0.1
+      type: module
 ```
 
-OR install using [HACS](https://hacs.xyz/) and add this instead:
+_OR_ install using [HACS](https://hacs.xyz/) and add this (if in YAML mode):
 ```yaml
-resources:
-  - url: /community_plugin/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
-    type: module
+lovelace:
+  resources:
+    - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+      type: module
 ```
+
+The above configuration can be managed directly in the Configuration -> Lovelace Dashboards -> Resources panel when not using YAML mode,
+or added by clicking the "Add to lovelace" button on the HACS dashboard after installing the plugin.
 
 If you want to use the vacuum background image, download and add
 [img/vacuum.png](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/img/vacuum.png)
 to `<config>/www/img/` or configure your own preferred path.
 
-## Options
+## Configuration
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
