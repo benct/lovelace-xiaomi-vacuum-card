@@ -148,6 +148,19 @@
                 sensor: false,
             },
         },
+        deebot_slim: {
+            buttons: {
+                start: {service: 'vacuum.turn_on'},
+                pause: {service: 'vacuum.stop'},
+                stop: {service: 'vacuum.turn_off'},
+            },
+            attributes: {
+                main_brush: false,
+                side_brush: {key: 'component_side_brush'},
+                filter: {key: 'component_filter'},
+                sensor: false,
+            },
+        },
         neato: {
             state: {
                 mode: false,

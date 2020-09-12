@@ -80,7 +80,7 @@ If you want any other vendors to be added, feel free to open an issue or contrib
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
-| vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `valetudo`, `ecovacs`, `deebot`, `robovac`, `roomba`, `neato`
+| vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `valetudo`, `ecovacs`, `deebot`, `deebot_slim`, `robovac`, `roomba`, `neato`
 
 *Note: Default attributes and buttons may change for each vendor integration.*
 
