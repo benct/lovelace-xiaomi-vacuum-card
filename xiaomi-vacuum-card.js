@@ -218,7 +218,7 @@
         }
         .title {
           font-size: 20px;
-          padding: 16px 16px 0;
+          padding: 12px 16px 8px;
           text-align: center;
           white-space: nowrap;
           text-overflow: ellipsis;
@@ -329,7 +329,7 @@
                 styles: {
                     background: config.image ? `background-image: url('${config.image}'); color: white; text-shadow: 0 0 10px black;` : '',
                     icon: `color: ${config.image ? 'white' : 'var(--paper-item-icon-color)'};`,
-                    content: `padding: ${config.buttons !== false ? '16px 16px 8px' : '16px'};`,
+                    content: `padding: ${config.name !== false ? '8px' : '16px'} 16px ${config.buttons !== false ? '8px' : '16px'};`,
                 },
             };
         }
