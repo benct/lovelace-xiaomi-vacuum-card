@@ -1,4 +1,10 @@
 ((LitElement) => {
+    console.info(
+        '%c XIAOMI_VACUUM_CARD %c 4.0.0-beta ',
+        'color: cyan; background: black; font-weight: bold;',
+        'color: darkblue; background: white; font-weight: bold;',
+    );
+
     const state = {
         status: {
             key: 'status',
