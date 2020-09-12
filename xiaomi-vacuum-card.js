@@ -85,6 +85,17 @@
 
     const vendors = {
         xiaomi: {},
+        xiaomi_mi: {
+            attributes: {
+                main_brush: {key: 'main_brush_hours'},
+                side_brush: {key: 'side_brush_hours'},
+                filter: {key: 'hypa_hours'},
+                sensor: {
+                    key: 'mop_hours',
+                    label: 'Mop: ',
+                },
+            },
+        },
         valetudo: {
             state: {
                 status: {
