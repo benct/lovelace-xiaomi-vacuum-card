@@ -1,4 +1,155 @@
 ((LitElement) => {
+    const state = {
+        status: {
+            key: 'status',
+            icon: 'mdi:robot-vacuum',
+        },
+        battery: {
+            key: 'battery_level',
+            unit: '%',
+            icon: 'mdi:battery-charging-80',
+        },
+        mode: {
+            key: 'fan_speed',
+            icon: 'mdi:fan',
+        },
+    };
+
+    const attributes = {
+        main_brush: {
+            key: 'main_brush_left',
+            label: 'Main Brush: ',
+            unit: ' h',
+        },
+        side_brush: {
+            key: 'side_brush_left',
+            label: 'Side Brush: ',
+            unit: ' h',
+        },
+        filter: {
+            key: 'filter_left',
+            label: 'Filter: ',
+            unit: ' h',
+        },
+        sensor: {
+            key: 'sensor_dirty_left',
+            label: 'Sensor: ',
+            unit: ' h',
+        },
+    };
+
+    const buttons = {
+        start: {
+            label: 'Start',
+            icon: 'mdi:play',
+            service: 'vacuum.start',
+        },
+        pause: {
+            label: 'Pause',
+            icon: 'mdi:pause',
+            service: 'vacuum.pause',
+        },
+        stop: {
+            label: 'Stop',
+            icon: 'mdi:stop',
+            service: 'vacuum.stop',
+        },
+        spot: {
+            show: false,
+            label: 'Clean Spot',
+            icon: 'mdi:broom',
+            service: 'vacuum.clean_spot',
+        },
+        locate: {
+            label: 'Locate',
+            icon: 'mdi:map-marker',
+            service: 'vacuum.locate',
+        },
+        return: {
+            label: 'Return to Base',
+            icon: 'mdi:home-map-marker',
+            service: 'vacuum.return_to_base',
+        },
+    };
+
+    const compute = {
+        trueFalse: v => (v === true ? 'Yes' : (v === false ? 'No' : '-')),
+        divide100: v => Math.round(Number(v) / 100),
+    }
+
+    const vendors = {
+        xiaomi: {},
+        valetudo: {
+            state: {
+                status: {
+                    key: 'state',
+                },
+            },
+            attributes: {
+                main_brush: {key: 'mainBrush'},
+                side_brush: {key: 'sideBrush'},
+                filter: {key: 'filter'},
+                sensor: {key: 'sensor'},
+            },
+        },
+        roomba: {
+            attributes: {
+                main_brush: false,
+                side_brush: false,
+                filter: false,
+                sensor: false,
+                bin_present: {
+                    key: 'bin_present',
+                    label: 'Bin Present: ',
+                    compute: compute.trueFalse,
+                },
+                bin_full: {
+                    key: 'bin_full',
+                    label: 'Bin Full: ',
+                    compute: compute.trueFalse,
+                },
+            },
+        },
+        robovac: {
+            attributes: false,
+            buttons: {
+                stop: {show: false},
+                spot: {show: true},
+            },
+        },
+        ecovacs: {
+            attributes: false,
+            buttons: {
+                start: {service: 'vacuum.turn_on'},
+                pause: {service: 'vacuum.stop'},
+                stop: {service: 'vacuum.turn_off', show: false},
+                spot: {show: true},
+            },
+        },
+        deebot: {
+            buttons: {
+                start: {service: 'vacuum.turn_on'},
+                pause: {service: 'vacuum.stop'},
+                stop: {service: 'vacuum.turn_off'},
+            },
+            attributes: {
+                main_brush: {
+                    key: 'component_main_brush',
+                    compute: compute.divide100,
+                },
+                side_brush: {
+                    key: 'component_side_brush',
+                    compute: compute.divide100,
+                },
+                filter: {
+                    key: 'component_filter',
+                    compute: compute.divide100,
+                },
+                sensor: false,
+            },
+        },
+    };
+
     const html = LitElement.prototype.html;
     const css = LitElement.prototype.css;
 
@@ -7,10 +158,8 @@
         static get properties() {
             return {
                 _hass: {},
-                _config: {},
+                config: {},
                 stateObj: {},
-                state: {},
-                style: {}
             }
         }
 
@@ -29,21 +178,15 @@
           text-overflow: ellipsis;
           overflow: hidden;
         }
-        .content {
-          cursor: pointer;
-        }
         .flex {
           display: flex;
           align-items: center;
           justify-content: space-evenly;
         }
-        .button {
-          cursor: pointer;
-          padding: 16px;
-        }
         .grid {
           display: grid;
           grid-template-columns: repeat(2, auto);
+          cursor: pointer;
         }
         .grid-content {
           display: grid;
@@ -64,60 +207,97 @@
         }
 
         render() {
-            return html`
-            <ha-card .hass="${this._hass}" .config="${this._config}" class="background" style="${this.style.background}">
-              ${this.state.name ?
-                html`<div class="title" style="${this.style.text}" @click="${() => this.fireEvent('hass-more-info')}">${this.state.name}</div>`
+            return this.stateObj ? html`
+            <ha-card class="background" style="${this.config.styles.background}">
+              ${this.config.show.name ?
+                html`<div class="title">${this.config.name || this.stateObj.attributes.friendly_name}</div>`
                 : null}
-              ${this.state.showLabels ? html`
-              <div class="content grid" style="${this.style.content + this.style.text}" @click="${() => this.fireEvent('hass-more-info')}">
+              ${(this.config.show.state || this.config.show.attributes) ? html`
+              <div class="grid" style="${this.config.styles.content}" @click="${() => this.fireEvent('hass-more-info')}">
+                ${this.config.show.state ? html`
                 <div class="grid-content grid-left">
-                  <div>${this.getValue('status')}</div>
-                  <div>${this.getValue('battery', ' %')}</div>
-                  <div>${this.getValue('mode')}</div>
-                </div>
-                ${this.state.showDetails ? html`
-                <div class="grid-content grid-right" >
-                  <div>${this.computeValue('main_brush')}</div>
-                  <div>${this.computeValue('side_brush')}</div>
-                  <div>${this.computeValue('filter')}</div>
-                  <div>${this.computeValue('sensor')}</div>
+                  ${Object.values(this.config.state).filter(v => v).map(this.renderAttribute.bind(this))}
+                </div>` : null}
+                ${this.config.show.attributes ? html`
+                <div class="grid-content grid-right">
+                  ${Object.values(this.config.attributes).filter(v => v).map(this.renderAttribute.bind(this))}
                 </div>` : null}
               </div>` : null}
-              ${this.state.showButtons ? html`
-              <div class="flex" style="${this.style.text}">
-                ${Object.keys(this.state.buttons).map(this.renderButton.bind(this))}
+              ${this.config.show.buttons ? html`
+              <div class="flex">
+                ${Object.values(this.config.buttons).filter(v => v).map(this.renderButton.bind(this))}
               </div>` : null}
-            </ha-card>`;
+            </ha-card>` : null;
         }
 
-        renderButton(key) {
-            return this.state.buttons[key]
-                ? html`<div class="button" @tap="${() => this.callService(key)}"><ha-icon icon="${this.state.icons[key]}"></ha-icon></div>`
+        renderAttribute(data) {
+            const computeFunc = data.compute || (v => v);
+            const value = (data && data.key in this.stateObj.attributes)
+                ? computeFunc(this.stateObj.attributes[data.key]) + (data.unit || '')
+                : this._hass.localize('state.default.unavailable');
+            return html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
+        }
+
+        renderIcon(data) {
+            const icon = (data.key === 'battery_level' && 'battery_icon' in this.stateObj.attributes)
+                ? this.stateObj.attributes['battery_icon']
+                : data.icon;
+            return html`<ha-icon icon="${icon}" style="margin-right: 10px; ${this.config.styles.icon}"></ha-icon>`;
+        }
+
+        renderButton(data) {
+            return data && data.show !== false
+                ? html`<ha-icon-button
+                    @click="${() => this.callService(data.service, data.service_data)}"
+                    icon="${data.icon}"
+                    title="${data.label || ''}"
+                    style="${this.config.styles.icon}"></ha-icon-button>`
                 : null;
         }
 
-        getValue(field, unit = '') {
-            const value = (this.stateObj && this.state.attributes[field] in this.stateObj.attributes)
-                ? this.stateObj.attributes[this.state.attributes[field]] + unit
-                : (this._hass ? this._hass.localize('state.default.unavailable') : 'Unavailable');
-            return `${this.state.labels[field]}: ${value}`;
-        };
+        getCardSize() {
+            if (this.config.show.name && this.config.show.buttons) return 4;
+            if (this.config.show.name || this.config.show.buttons) return 3;
+            return 2;
+        }
 
-        computeValue(field) {
-            if (this.state.attributes[field] === undefined || this.state.attributes[field] === false) {
-                return null;
-            } else if (this.stateObj && this.state.attributes[field] in this.stateObj.attributes) {
-                const computed = this.state.computeValue(this.stateObj.attributes[this.state.attributes[field]]);
-                const unit = typeof computed === 'number' ? ` ${this.state.labels.hours}` : '';
-                return `${this.state.labels[field]}: ${computed}${unit}`;
-            } else {
-                return `${this.state.labels[field]}: - `;
+        setConfig(config) {
+            if (!config.entity) throw new Error('Please define an entity.');
+            if (config.entity.split('.')[0] !== 'vacuum') throw new Error('Please define a vacuum entity.');
+            if (config.vendor && !config.vendor in vendors) throw new Error('Please define a valid vendor.');
+
+            const vendor = vendors[config.vendor] || vendors.xiaomi;
+
+            this.config = {
+                name: config.name,
+                entity: config.entity,
+                show: {
+                    name: config.name !== false,
+                    state: config.state !== false,
+                    attributes: config.attributes !== false,
+                    buttons: config.buttons !== false,
+                },
+                buttons: this.deepMerge(buttons, vendor.buttons, config.buttons),
+                state: this.deepMerge(state, vendor.state, config.state),
+                attributes: this.deepMerge(attributes, vendor.attributes, config.attributes),
+                styles: {
+                    background: config.image ? `background-image: url('${config.image}'); color: white; text-shadow: 0 0 10px black;` : '',
+                    icon: `color: ${config.image ? 'white' : 'var(--paper-item-icon-color)'};`,
+                    content: `padding: ${config.buttons !== false ? '16px 16px 8px' : '16px'};`,
+                },
+            };
+        }
+
+        set hass(hass) {
+            if (hass && this.config) {
+                this.stateObj = this.config.entity in hass.states ? hass.states[this.config.entity] : null;
             }
-        };
+            this._hass = hass;
+        }
 
-        callService(service) {
-            this._hass.callService('vacuum', this.state.service[service], {entity_id: this.stateObj.entity_id});
+        callService(service, data = {entity_id: this.stateObj.entity_id}) {
+            const [domain, name] = service.split('.');
+            this._hass.callService(domain, name, data);
         }
 
         fireEvent(type, options = {}) {
@@ -130,166 +310,26 @@
             this.dispatchEvent(event);
         }
 
-        getCardSize() {
-            if (this.state.name && this.state.showButtons) return 5;
-            if (this.state.name || this.state.showButtons) return 4;
-            return 3;
-        }
+        deepMerge(...sources) {
+            const isObject = (obj) => obj && typeof obj === 'object';
+            const target = {};
 
-        setConfig(config) {
-            const labels = {
-                status: 'Status',
-                battery: 'Battery',
-                mode: 'Mode',
-                main_brush: 'Main Brush',
-                side_brush: 'Side Brush',
-                filter: 'Filter',
-                sensor: 'Sensor',
-                hours: 'h',
-            };
+            sources.filter(source => isObject(source)).forEach(source => {
+                Object.keys(source).forEach(key => {
+                    const targetValue = target[key];
+                    const sourceValue = source[key];
 
-            const attributes = {
-                status: 'status',
-                battery: 'battery_level',
-                mode: 'fan_speed',
-                main_brush: 'main_brush_left',
-                side_brush: 'side_brush_left',
-                filter: 'filter_left',
-                sensor: 'sensor_dirty_left',
-            };
+                    if (Array.isArray(targetValue) && Array.isArray(sourceValue)) {
+                        target[key] = targetValue.concat(sourceValue);
+                    } else if (isObject(targetValue) && isObject(sourceValue)) {
+                        target[key] = this.deepMerge(Object.assign({}, targetValue), sourceValue);
+                    } else {
+                        target[key] = sourceValue;
+                    }
+                });
+            });
 
-            const services = {
-                start: 'start',
-                pause: 'pause',
-                stop: 'stop',
-                locate: 'locate',
-                return: 'return_to_base',
-                spot: 'clean_spot',
-            };
-
-            const buttons = {
-                start: true,
-                pause: true,
-                stop: true,
-                spot: false,
-                locate: true,
-                return: true,
-            };
-
-            const icons = {
-                start: 'mdi:play',
-                pause: 'mdi:pause',
-                stop: 'mdi:stop',
-                locate: 'mdi:map-marker',
-                return: 'mdi:home-map-marker',
-                spot: 'mdi:broom',
-            };
-
-            const vendors = {
-                xiaomi: {
-                    details: true,
-                },
-                valetudo: {
-                    details: true,
-                    attributes: {
-                        status: 'state',
-                        main_brush: 'mainBrush',
-                        side_brush: 'sideBrush',
-                        filter: 'filter',
-                        sensor: 'sensor',
-                    },
-                },
-                roomba: {
-                    details: true,
-                    attributes: {
-                        main_brush: 'bin_present',
-                        side_brush: 'bin_full',
-                        filter: false,
-                        sensor: false,
-                    },
-                    labels: {
-                        main_brush: 'Bin Present',
-                        side_brush: 'Bin Full',
-                    },
-                    computeValue: v => (v === true ? 'Yes' : (v === false ? 'No' : '-')),
-                },
-                robovac: {
-                    details: false,
-                    buttons: {
-                        stop: false,
-                        spot: true,
-                    },
-                },
-                ecovacs: {
-                    image: '/local/img/vacuum_ecovacs.png',
-                    details: false,
-                    buttons: {
-                        stop: false,
-                        spot: true,
-                    },
-                    service: {
-                        start: 'turn_on',
-                        pause: 'stop',
-                        stop: 'turn_off',
-                    },
-                },
-                deebot: {
-                    image: '/local/img/vacuum_ecovacs.png',
-                    details: true,
-                    service: {
-                        start: 'turn_on',
-                        pause: 'stop',
-                        stop: 'turn_off',
-                    },
-                    attributes: {
-                        main_brush: 'component_main_brush',
-                        side_brush: 'component_side_brush',
-                        filter: 'component_filter',
-                        sensor: false,
-                    },
-                    computeValue: v => Math.round(Number(v) / 100),
-                }
-            };
-
-            if (!config.entity) throw new Error('Please define an entity.');
-            if (config.entity.split('.')[0] !== 'vacuum') throw new Error('Please define a vacuum entity.');
-            if (config.vendor && !config.vendor in vendors) throw new Error('Please define a valid vendor.');
-
-            const vendor = vendors[config.vendor] || vendors.xiaomi;
-
-            this.state = {
-                showDetails: vendor.details,
-                showButtons: config.buttons !== false,
-                showLabels: config.labels !== false,
-                showName: config.name !== false,
-
-                service: Object.assign({}, services, vendor.service),
-                buttons: Object.assign({}, buttons, vendor.buttons, config.buttons),
-                attributes: Object.assign({}, attributes, vendor.attributes, config.attributes),
-                labels: Object.assign({}, labels, vendor.labels, config.labels),
-                icons: Object.assign({}, icons, config.icons),
-                computeValue: vendor.computeValue || (val => val),
-            };
-
-            this.style = {
-                text: `color: ${config.image !== false ? 'white; text-shadow: 0 0 10px black;' : 'var(--primary-text-color);'}`,
-                content: `padding: ${config.showButtons ? '16px 16px 4px' : '16px'};`,
-                background: config.image !== false ? `background-image: url('${config.image || vendor.image || '/local/img/vacuum.png'}')` : ''
-            };
-
-            this._config = config;
-        }
-
-        set hass(hass) {
-            this._hass = hass;
-
-            if (hass && this._config) {
-                this.stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
-
-                if (this.stateObj && this.state.showName) {
-                    this.state.name = this._config.name || this.stateObj.attributes.friendly_name;
-                }
-            }
+            return target;
         }
     }
 

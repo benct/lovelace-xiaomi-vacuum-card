@@ -39,50 +39,52 @@ to `<config>/www/img/` or configure your own preferred path.
 | ---- | ---- | ------- | -----------
 | type | string | **Required** | `custom:xiaomi-vacuum-card`
 | entity | string | **Required** | `vacuum.my_xiaomi_vacuum`
-| name | string/bool | `friendly_name` | Override entity friendly name (set to `false` to hide title)
-| image | string/bool | `/local/img/vacuum.png` | Custom path/name of background image (set to `false` to disable background)
-| buttons | object/bool | *(see below)* | Set to `false` to hide button row
-| labels | object/bool | *(see below)* | Set to `false` to hide details/labels
-| icons | object | | Set custom button icons (same keys as `buttons` object)
+| name | string/bool | `friendly_name` | Override friendly name (set to `false` to hide)
+| image | string/bool | `false` | Set path/filename of background image (i.e. `/local/img/vacuum.png`)
+| state | attribute objects | *(see below)* | Set to `false` to hide all states
+| attributes | attribute objects | *(see below)* | Set to `false` to hide all attributes
+| buttons | button objects | *(see below)* | Set to `false` to hide button row
 
-### Buttons object
+### Attribute object
 
-| Name | Type | Default | Description
-| ---- | ---- | ------- | -----------
-| start | bool | `true` | Show or hide start button
-| pause | bool | `true` | Show or hide pause button
-| stop | bool | `true` | Show or hide stop button
-| spot | bool | `false` | Show or hide clean spot button
-| locate | bool | `true` | Show or hide locate button
-| return | bool | `true` | Show or hide return to home button
+Default vacuum attributes under each list:
+- `state` (**left list**) include `status`, `battery` and `mode`.
+- `attributes` (**right list**) include `main_brush`, `side_brush`, `filter` and `sensor`.
 
-### Labels object
-
-Customize or translate label names.
+See [examples](#examples) on how to customize, hide or add custom attributes.
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
-| status | string | `Status` | Change status label
-| battery | string | `Battery` | Change battery label
-| mode | string | `Mode` | Change mode label
-| main_brush | string | `Main Brush` | Change main brush label
-| side_brush | string | `Side Brush` | Change side brush label
-| filter | string | `Filter` | Change filter label
-| sensor | string | `Sensor` | Change sensor label
-| hours | string | `h` | Change hours label
+| key | string | **Required** | Attribute key on vacuum entity
+| icon | string | | Optional icon
+| label | string | | Optional label text
+| unit | string | | Optional unit
+
+### Button object
+
+Default buttons include `start`, `pause`, `stop`, `spot` (hidden), `locate` and `return`.
+See [examples](#examples) on how to customize, hide or add custom buttons/actions.
+
+| Name | Type | Default | Description
+| ---- | ---- | ------- | -----------
+| icon | string | **Required** | Show or hide stop button
+| service | string | **Required** | Service to call (i.e `vacuum.start`)
+| show | bool | `true` | Show or hide button
+| label | string | | Optional label on hover
+| service_data | object | | Data applied to the service call
 
 ### Other vendors
 
 This card was originally written for Xiaomi (Roborock) vacuum cleaners, but version `2.0` and later has added support for some other vendors too.
-If you think any more vendors should be added, feel free to open an issue or contribute directly with a PR.
+If you want any other vendors to be added, feel free to open an issue or contribute directly with a PR.
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
 | vendor | string | `xiaomi` | Supported vendors: `xiaomi`, `valetudo`, `ecovacs`, `deebot`, `robovac`, `roomba`
 
-*Note: Vendor `ecovacs` and `robovac` shows the clean spot button instead of the stop button by default*
+*Note: Default attributes and buttons may change for each vendor integration.*
 
-## Examples
+## Screenshots
 
 ![xiaomi-vacuum-card](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/default.png)
 
@@ -98,34 +100,99 @@ No background image
 
 ![xiaomi-vacuum-card-no-background](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/no-background.png)
 
-Simple config example:
+## Examples
+
+Basic configuration:
 ```yaml
 - type: custom:xiaomi-vacuum-card
   entity: vacuum.xiaomi_vacuum_cleaner
 ```
 
-Advanced configuration:
 ```yaml
 - type: custom:xiaomi-vacuum-card
   entity: vacuum.xiaomi_vacuum_cleaner
   image: /local/custom/folder/background.png
   name: My Vacuum
   vendor: xiaomi
+```
+
+Hide state, attributes and/or buttons:
+```yaml
+- type: custom:xiaomi-vacuum-card
+  entity: vacuum.xiaomi_vacuum_cleaner
+  state: false
+  attributes: false
+  buttons: false
+```
+
+Hide specific state values, attributes and/or buttons:
+```yaml
+- type: custom:xiaomi-vacuum-card
+  entity: vacuum.xiaomi_vacuum_cleaner
+  state:
+    mode: false
+  attributes:
+    main_brush: false
+    side_brush: false
   buttons:
-    start: true
-    stop: true
+    pause: false
     locate: false
-  icons:
-    start: mdi:some-icon
-    stop: mdi:other-icon
-  labels:
-    status: Etat
-    battery: Batterie
-    mode: Puissance
-    main_brush: Brosse Principale
-    side_brush: Brosse Latérale
-    filter: Filtre
-    sensor: Capteurs
+``` 
+
+Customize specific state values, attributes and/or buttons:
+```yaml
+- type: custom:xiaomi-vacuum-card
+  entity: vacuum.xiaomi_vacuum_cleaner
+  state:
+    status:
+      key: state
+    mode:
+      icon: mdi:robot-vacuum
+      label: 'Fan speed: '
+      unit: 'percent'
+  attributes:
+    main_brush:
+      key: component_main_brush
+    side_brush:
+      key: component_side_brush
+  buttons:
+    pause:
+      icon: mdi:stop
+      label: Hold
+      service: vacuum.stop
+```
+
+Show default clean spot button:
+```yaml
+- type: custom:xiaomi-vacuum-card
+  entity: vacuum.xiaomi_vacuum_cleaner
+  buttons:
+    spot:
+      show: true
+```
+
+Add custom attributes:
+```yaml
+- type: custom:xiaomi-vacuum-card
+  entity: vacuum.xiaomi_vacuum_cleaner
+  attributes:
+    clean_area:
+      key: 'clean_area'
+      label: 'Cleaned area: '
+      unit: ' m2'
+```
+
+Add custom button and service call:
+```yaml
+- type: custom:xiaomi-vacuum-card
+  entity: vacuum.xiaomi_vacuum_cleaner
+  buttons:
+    new_button:
+      icon: mdi:light-switch
+      label: Custom button!
+      service: light.turn_off
+      service_data:
+        entity_id: light.living_room
 ```
 
 ## Disclaimer
