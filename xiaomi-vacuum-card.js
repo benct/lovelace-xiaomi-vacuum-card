@@ -148,6 +148,22 @@
                 sensor: false,
             },
         },
+        neato: {
+            state: {
+                mode: false,
+            },
+            attributes: {
+                main_brush: false,
+                side_brush: false,
+                filter: false,
+                sensor: false,
+                clean_area: {
+                    key: 'clean_area',
+                    label: 'Cleaned area: ',
+                    unit: ' m2',
+                },
+            },
+        },
     };
 
     const html = LitElement.prototype.html;
