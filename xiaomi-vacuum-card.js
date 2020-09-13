@@ -278,15 +278,21 @@
 
         renderAttribute(data) {
             const computeFunc = data.compute || (v => v);
-            const value = (data && data.key in this.stateObj.attributes)
+            const isValid = data && data.key in this.stateObj.attributes;
+
+            const value = isValid
                 ? computeFunc(this.stateObj.attributes[data.key]) + (data.unit || '')
                 : this._hass.localize('state.default.unavailable');
-            return html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
+            const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
+
+            return (isValid && data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
+                ? this.renderMode(attribute) : attribute;
+
         }
 
         renderIcon(data) {
             const icon = (data.key === 'battery_level' && 'battery_icon' in this.stateObj.attributes)
-                ? this.stateObj.attributes['battery_icon']
+                ? this.stateObj.attributes.battery_icon
                 : data.icon;
             return html`<ha-icon icon="${icon}" style="margin-right: 10px; ${this.config.styles.icon}"></ha-icon>`;
         }
@@ -299,6 +305,20 @@
                     title="${data.label || ''}"
                     style="${this.config.styles.icon}"></ha-icon-button>`
                 : null;
+        }
+
+        renderMode(attribute) {
+            const selected = this.stateObj.attributes.fan_speed;
+            const list = this.stateObj.attributes.fan_speed_list;
+
+            return html`
+              <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
+                <paper-button slot="dropdown-trigger">${attribute}</paper-button>
+                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e)}">
+                  ${list.map(item => html`<paper-item value="${item}" style="text-shadow: none;">${item}</paper-item>`)}
+                </paper-listbox>
+              </paper-menu-button>
+            `;
         }
 
         getCardSize() {
@@ -339,6 +359,11 @@
                 this.stateObj = this.config.entity in hass.states ? hass.states[this.config.entity] : null;
             }
             this._hass = hass;
+        }
+
+        handleChange(e) {
+            const mode = e.target.getAttribute('value');
+            this.callService('vacuum.set_fan_speed', {entity_id: this.stateObj.entity_id, fan_speed: mode});
         }
 
         callService(service, data = {entity_id: this.stateObj.entity_id}) {
