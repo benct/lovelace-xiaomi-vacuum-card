@@ -1,6 +1,25 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.0.0
+
+Refactored most of the code and added several features and improvements.
+May contain **breaking changes** and require some **configuration changes**!
+See [README](https://github.com/benct/lovelace-xiaomi-vacuum-card) for more information.
+
+- **Added:** Dropdown menu for selecting operation mode/fan speed (#9, #48)
+- **Added:** Support additional buttons and custom service calls (#26, #41, #50, #51)
+- **Added:** Support hiding any state or attribute (#42, #47)
+- **Added:** Display icons with state values and support icons on all attributes
+- **Added:** Display vacuum entity's battery icon if available
+- **Added:** Vendor support for Neato vacuums (#16)
+- **Added:** Vendor support for Xiaomi Mi vacuums (#34)
+- **Added:** Vendor support for Deebot (slim) vacuums (#53)
+- **Changed:** Simplify several vendor integrations
+- **Changed:** Render proper icon buttons with optional labels
+- **Changed:** Make background image disabled by default
+- **Fixed:** Incorrect padding causing hidden text shadows under title
+
 ## 3.0.1
 
 - **Fixed:** Incorrect unit on `roomba` boolean attribute values (#24)
