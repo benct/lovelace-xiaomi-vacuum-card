@@ -182,7 +182,7 @@ Add custom attributes:
       unit: ' m2'
 ```
 
-Add custom button and service call:
+Add custom buttons and service calls:
 ```yaml
 - type: custom:xiaomi-vacuum-card
   entity: vacuum.xiaomi_vacuum_cleaner
@@ -193,6 +193,30 @@ Add custom button and service call:
       service: light.turn_off
       service_data:
         entity_id: light.living_room
+```
+
+Translations:
+```yaml
+- type: custom:xiaomi-vacuum-card
+  entity: vacuum.xiaomi_vacuum_cleaner
+  attributes:
+    main_brush:
+      label: 'Hovedkost: '
+      unit: ' timer'
+    side_brush:
+      label: 'Sidekost: '
+      unit: ' timer'
+    filter:
+      label: 'Filtere: '
+    sensor:
+      label: 'Sensorer: '
+  buttons:
+    start:
+      label: Start!
+    pause:
+      label: Stopp!
+    stop:
+      label: Hammertime
 ```
 
 ## Disclaimer
