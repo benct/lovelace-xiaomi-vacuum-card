@@ -273,7 +273,7 @@
               <div class="flex">
                 ${Object.values(this.config.buttons).filter(v => v).map(this.renderButton.bind(this))}
               </div>` : null}
-            </ha-card>` : null;
+            </ha-card>` : html`<ha-card style="padding: 8px 16px">Entity '${this.config.entity}' not available...</ha-card>`;
         }
 
         renderAttribute(data) {
