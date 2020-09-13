@@ -88,17 +88,11 @@ If you want any other vendors to be added, feel free to open an issue or contrib
 
 ![xiaomi-vacuum-card](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/default.png)
 
-Hidden title/name
-
 ![xiaomi-vacuum-card-no-title](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/no-title.png)
 
-Hidden button row
+![xiaomi-vacuum-card-image](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/with-image.png)
 
 ![xiaomi-vacuum-card-no-buttons](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/no-buttons.png)
-
-No background image
-
-![xiaomi-vacuum-card-no-background](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/examples/no-background.png)
 
 ## Examples
 
