@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.0.1
+
+- **Fixed:** Compatibility issue with HA `0.116` (#56)
+
 ## 4.0.0
 
 Refactored most of the code and added several features and improvements.
