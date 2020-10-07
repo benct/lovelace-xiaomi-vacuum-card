@@ -1,6 +1,6 @@
 ((LitElement) => {
     console.info(
-        '%c XIAOMI_VACUUM_CARD %c 4.0.1 ',
+        '%c XIAOMI-VACUUM-CARD %c 4.0.1 ',
         'color: cyan; background: black; font-weight: bold;',
         'color: darkblue; background: white; font-weight: bold;',
     );
