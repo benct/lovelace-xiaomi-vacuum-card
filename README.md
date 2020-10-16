@@ -2,9 +2,10 @@
 
 Simple card for various robot vacuums in Home Assistant's Lovelace UI
 
-[![GH-release](https://img.shields.io/badge/version-4.0.1-red.svg?style=flat-square)](https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js)
+[![GH-release](https://img.shields.io/github/v/release/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card/releases)
+[![GH-downloads](https://img.shields.io/github/downloads/benct/lovelace-xiaomi-vacuum-card/total?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card/releases)
 [![GH-last-commit](https://img.shields.io/github/last-commit/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card/commits/master)
-[![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-xiaomi-vacuum-card.svg?style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card)
+[![GH-code-size](https://img.shields.io/github/languages/code-size/benct/lovelace-xiaomi-vacuum-card.svg?color=red&style=flat-square)](https://github.com/benct/lovelace-xiaomi-vacuum-card)
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=flat-square)](https://github.com/hacs)
 
 Integrated support for most vacuums from the following brands/models:
