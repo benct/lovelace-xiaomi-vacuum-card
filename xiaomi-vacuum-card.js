@@ -1,6 +1,6 @@
 ((LitElement) => {
     console.info(
-        '%c XIAOMI-VACUUM-CARD %c 4.0.1 ',
+        '%c XIAOMI-VACUUM-CARD %c 4.0.2 ',
         'color: cyan; background: black; font-weight: bold;',
         'color: darkblue; background: white; font-weight: bold;',
     );
@@ -251,6 +251,10 @@
           border-right: 2px solid var(--primary-color);
         }`;
         }
+
+		shouldUpdate(changedProps) {
+			if (changedProps.has('stateObj')) {return true;}
+		}
 
         render() {
             return this.stateObj ? html`
