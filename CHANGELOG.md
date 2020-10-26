@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.1.0
+
+- **Added:** Function `shouldUpdate` to prevent unnecessary re-rendering (#61)
+- **Changed:** Use dashes instead of underscore in console info card name
+
 ## 4.0.1
 
 - **Fixed:** Compatibility issue with HA `0.116` (#56)
