@@ -1,6 +1,6 @@
 ((LitElement) => {
     console.info(
-        '%c XIAOMI-VACUUM-CARD %c 4.0.2 ',
+        '%c XIAOMI-VACUUM-CARD %c 4.0.1 ',
         'color: cyan; background: black; font-weight: bold;',
         'color: darkblue; background: white; font-weight: bold;',
     );
@@ -211,49 +211,45 @@
 
         static get styles() {
             return css`
-        .background {
-          background-repeat: no-repeat;
-          background-position: center center;
-          background-size: cover;
-        }
-        .title {
-          font-size: 20px;
-          padding: 12px 16px 8px;
-          text-align: center;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-        }
-        .flex {
-          display: flex;
-          align-items: center;
-          justify-content: space-evenly;
-        }
-        .grid {
-          display: grid;
-          grid-template-columns: repeat(2, auto);
-          cursor: pointer;
-        }
-        .grid-content {
-          display: grid;
-          align-content: space-between;
-          grid-row-gap: 6px;
-        }
-        .grid-left {
-          text-align: left;
-          font-size: 110%;
-          padding-left: 10px;
-          border-left: 2px solid var(--primary-color);
-        }
-        .grid-right {
-          text-align: right;
-          padding-right: 10px;
-          border-right: 2px solid var(--primary-color);
-        }`;
-        }
-
-        shouldUpdate(changedProps) {
-            return changedProps.has('stateObj');
+.background {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.title {
+  font-size: 20px;
+  padding: 12px 16px 8px;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  cursor: pointer;
+}
+.grid-content {
+  display: grid;
+  align-content: space-between;
+  grid-row-gap: 6px;
+}
+.grid-left {
+  text-align: left;
+  font-size: 110%;
+  padding-left: 10px;
+  border-left: 2px solid var(--primary-color);
+}
+.grid-right {
+  text-align: right;
+  padding-right: 10px;
+  border-right: 2px solid var(--primary-color);
+}`;
         }
 
         render() {
@@ -329,6 +325,10 @@
             if (this.config.show.name && this.config.show.buttons) return 4;
             if (this.config.show.name || this.config.show.buttons) return 3;
             return 2;
+        }
+
+        shouldUpdate(changedProps) {
+            return changedProps.has('stateObj');
         }
 
         setConfig(config) {
