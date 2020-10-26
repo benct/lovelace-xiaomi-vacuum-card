@@ -252,9 +252,9 @@
         }`;
         }
 
-		shouldUpdate(changedProps) {
-			if (changedProps.has('stateObj')) {return true;}
-		}
+        shouldUpdate(changedProps) {
+            return changedProps.has('stateObj');
+        }
 
         render() {
             return this.stateObj ? html`
