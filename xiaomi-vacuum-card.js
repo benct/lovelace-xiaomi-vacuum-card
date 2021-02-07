@@ -291,7 +291,7 @@
 
             return (isValid && data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
                 //|| (data.key === 'water_speed' && 'water_speed_list' in this.stateObj.attributes))
-                ? this.renderMode(attribute, this.stateObj.attributes.fan_speed, this.stateObj.attributes.fan_speed_list) : attribute;
+                ? this.renderMode(attribute, data.key) : attribute;
 
         }
 
@@ -312,7 +312,10 @@
                 : null;
         }
 
-        renderMode(attribute, selected, list) {
+        renderMode(attribute, attribute_name) {
+            const selected = this.stateObj.attributes[attribute_name];
+            const list = this.stateObj.attributes[attribute_name + "_list"];
+
             return html`
               <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
                 <paper-button slot="dropdown-trigger">${attribute}</paper-button>
