@@ -292,7 +292,7 @@
             return (isValid && 
                 (data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
                 || (data.key === 'water_speed' && 'water_speed_list' in this.stateObj.attributes))
-                ? this.renderMode(attribute, this.stateObj.attributes[data.key], this.stateObj.attributes[data.key + 'list']) : attribute;
+                ? this.renderMode(attribute, this.stateObj.attributes[data.key], this.stateObj.attributes[data.key + '_list']) : attribute;
 
         }
 
