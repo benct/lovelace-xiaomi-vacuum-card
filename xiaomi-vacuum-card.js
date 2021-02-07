@@ -291,7 +291,7 @@
 
             return (isValid && data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
                 //|| (data.key === 'water_speed' && 'water_speed_list' in this.stateObj.attributes))
-                ? this.renderMode(attribute, computeFunc(this.stateObj.attributes[data.key]), computeFunc(this.stateObj.attributes[data.key + '_list'])) : attribute;
+                ? this.renderMode(attribute, this.stateObj.attributes.fan_speed, this.stateObj.attributes.fan_speed_list) : attribute;
 
         }
 
