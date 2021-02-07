@@ -289,10 +289,9 @@
                 : this._hass.localize('state.default.unavailable');
             const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
 
-            return (isValid && 
-                (data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
-                || (data.key === 'water_speed' && 'water_speed_list' in this.stateObj.attributes))
-                ? this.renderMode(attribute, this.stateObj.attributes[data.key], this.stateObj.attributes[data.key + '_list']) : attribute;
+            return (isValid && data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
+                //|| (data.key === 'water_speed' && 'water_speed_list' in this.stateObj.attributes))
+                ? this.renderMode(attribute, computeFunc(this.stateObj.attributes[data.key]), computeFunc(this.stateObj.attributes[data.key + '_list'])) : attribute;
 
         }
 
