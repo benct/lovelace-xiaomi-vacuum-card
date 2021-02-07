@@ -315,6 +315,8 @@
         renderMode(attribute, attribute_name) {
             const selected = this.stateObj.attributes[attribute_name];
             const list = this.stateObj.attributes[attribute_name + "_list"];
+            console.error(selected);
+            console.error(list);
 
             return html`
               <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
