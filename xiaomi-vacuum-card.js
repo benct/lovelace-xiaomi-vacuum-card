@@ -19,6 +19,10 @@
             key: 'fan_speed',
             icon: 'mdi:fan',
         },
+        water_speed: {
+            key: "water_speed",
+            icon: 'mdi:fan'
+        }
     };
 
     const attributes = {
@@ -285,8 +289,10 @@
                 : this._hass.localize('state.default.unavailable');
             const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
 
-            return (isValid && data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
-                ? this.renderMode(attribute) : attribute;
+            return (isValid && 
+                (data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
+                || (data.key === 'water_speed' && 'water_speed_list' in this.stateObj.attributes))
+                ? this.renderMode(attribute, this.stateObj.attributes[data.key], this.stateObj.attributes[data.key + 'list']) : attribute;
 
         }
 
@@ -307,15 +313,12 @@
                 : null;
         }
 
-        renderMode(attribute) {
-            const selected = this.stateObj.attributes.fan_speed;
-            const list = this.stateObj.attributes.fan_speed_list;
-
+        renderMode(attribute, selected, list) {
             return html`
               <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
                 <paper-button slot="dropdown-trigger">${attribute}</paper-button>
-                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e)}">
-                  ${list.map(item => html`<paper-item value="${item}" style="text-shadow: none;">${item}</paper-item>`)}
+                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, selected)}">
+                  ${list.map(item => html`<paper-item value="${item}" style="text-shadow: none;>${item}</paper-item>`)}
                 </paper-listbox>
               </paper-menu-button>
             `;
@@ -365,9 +368,9 @@
             this._hass = hass;
         }
 
-        handleChange(e) {
+        handleChange(e, attribute_name) {
             const mode = e.target.getAttribute('value');
-            this.callService('vacuum.set_fan_speed', {entity_id: this.stateObj.entity_id, fan_speed: mode});
+            this.callService('vacuum.set_' + attribute_name, {entity_id: this.stateObj.entity_id, attribute_name: mode});
         }
 
         callService(service, data = {entity_id: this.stateObj.entity_id}) {
