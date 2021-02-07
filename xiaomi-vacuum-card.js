@@ -289,8 +289,9 @@
                 : this._hass.localize('state.default.unavailable');
             const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
 
-            return (isValid && data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
-                //|| (data.key === 'water_speed' && 'water_speed_list' in this.stateObj.attributes))
+            return (isValid && 
+                (data.key === 'fan_speed' && 'fan_speed_list' in this.stateObj.attributes)
+                || (data.key === 'water_speed' && 'water_speed_list' in this.stateObj.attributes))
                 ? this.renderMode(attribute, data.key) : attribute;
 
         }
@@ -315,13 +316,11 @@
         renderMode(attribute, attribute_name) {
             const selected = this.stateObj.attributes[attribute_name];
             const list = this.stateObj.attributes[attribute_name + "_list"];
-            console.error(selected);
-            console.error(list);
 
             return html`
               <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
                 <paper-button slot="dropdown-trigger">${attribute}</paper-button>
-                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, selected)}">
+                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, attribute_name)}">
                   ${list.map(item => html`<paper-item value="${item}" style="text-shadow: none;>${item}</paper-item>`)}
                 </paper-listbox>
               </paper-menu-button>
