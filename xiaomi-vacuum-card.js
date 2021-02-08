@@ -18,10 +18,6 @@
         mode: {
             key: 'fan_speed',
             icon: 'mdi:fan',
-        },
-        water_speed: {
-            key: "water_speed",
-            icon: 'mdi:fan'
         }
     };
 
@@ -316,6 +312,7 @@
         renderMode(attribute, attribute_name) {
             const selected = this.stateObj.attributes[attribute_name];
             const list = this.stateObj.attributes[attribute_name + "_list"];
+            console.error(this.config.entity);
 
             return html`
               <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
