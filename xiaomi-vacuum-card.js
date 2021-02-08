@@ -18,7 +18,7 @@
         mode: {
             key: 'fan_speed',
             icon: 'mdi:fan',
-        }
+        },
     };
 
     const attributes = {
@@ -288,7 +288,7 @@
             const hasDropdown = data.key + "_list" in this.stateObj.attributes;
 
             return (isValid && hasDropdown) 
-                ? this.renderMode(attribute, data.key) 
+                ? this.renderDropdown(attribute, data.key) 
                 : attribute;
         }
 
@@ -309,10 +309,9 @@
                 : null;
         }
 
-        renderMode(attribute, attribute_name) {
+        renderDropdown(attribute, attribute_name) {
             const selected = this.stateObj.attributes[attribute_name];
             const list = this.stateObj.attributes[attribute_name + "_list"];
-            console.error(this.config.entity);
 
             return html`
               <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
