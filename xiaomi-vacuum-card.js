@@ -370,7 +370,7 @@
 
         handleChange(e, attribute_name) {
             const mode = e.target.getAttribute('value');
-            this.callService('vacuum.set_' + attribute_name, {entity_id: this.stateObj.entity_id, attribute_name: mode});
+            this.callService('vacuum.set_' + attribute_name, {entity_id: this.stateObj.entity_id, [attribute_name]: mode});
         }
 
         callService(service, data = {entity_id: this.stateObj.entity_id}) {
