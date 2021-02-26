@@ -278,16 +278,19 @@
 
         renderAttribute(data) {
             const computeFunc = data.compute || (v => v);
-            const isValid = data && data.key in this.stateObj.attributes;
+            const isValidAttribute = data && data.key in this.stateObj.attributes;
+            const isValidEntityData = data && data.key in this.stateObj;
 
-            const value = isValid
+            const value = isValidAttribute
                 ? computeFunc(this.stateObj.attributes[data.key]) + (data.unit || '')
-                : this._hass.localize('state.default.unavailable');
+                : isValidEntityData
+                  ? computeFunc(this.stateObj[data.key]) + (data.unit || '')
+                  : this._hass.localize('state.default.unavailable');
             const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
 
             const hasDropdown = data.key + "_list" in this.stateObj.attributes;
 
-            return (isValid && hasDropdown) 
+            return ((isValidAttribute || isValidEntityData) && hasDropdown) 
                 ? this.renderDropdown(attribute, data.key) 
                 : attribute;
         }
