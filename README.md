@@ -45,11 +45,11 @@ to `<config>/www/img/` or configure your own preferred path.
 | entity | string | **Required** | `vacuum.my_xiaomi_vacuum`
 | name | string/bool | `friendly_name` | Override friendly name (set to `false` to hide)
 | image | string/bool | `false` | Set path/filename of background image (i.e. `/local/img/vacuum.png`)
-| state | attribute objects | *(see below)* | Set to `false` to hide all states
-| attributes | attribute objects | *(see below)* | Set to `false` to hide all attributes
-| buttons | button objects | *(see below)* | Set to `false` to hide button row
+| state | [Entity Data](#entity data) | *(see below)* | Set to `false` to hide all states
+| attributes | [Entity Data](#entity data) | *(see below)* | Set to `false` to hide all attributes
+| buttons | [Button Data](#button data) | *(see below)* | Set to `false` to hide button row
 
-### Attribute object
+### Entity Data
 
 Default vacuum attributes under each list:
 - `state` (**left list**) include `status`, `battery` and `mode`.
@@ -59,12 +59,12 @@ See [examples](#examples) on how to customize, hide or add custom attributes.
 
 | Name | Type | Default | Description
 | ---- | ---- | ------- | -----------
-| key | string | **Required** | Attribute key on vacuum entity
+| key | string | **Required** | Attribute/state key on vacuum entity
 | icon | string | | Optional icon
 | label | string | | Optional label text
 | unit | string | | Optional unit
 
-### Button object
+### Button Data
 
 Default buttons include `start`, `pause`, `stop`, `spot` (hidden), `locate` and `return`.
 See [examples](#examples) on how to customize, hide or add custom buttons/actions.
