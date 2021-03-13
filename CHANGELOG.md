@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.2.0
+
+- **Added:** Support using any data values from vacuum entity (#69)
+- **Added:** Support any generic dropdown list attributes (#69)
+
 ## 4.1.0
 
 - **Added:** Function `shouldUpdate` to prevent unnecessary re-rendering (#61)

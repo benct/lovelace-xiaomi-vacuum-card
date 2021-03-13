@@ -18,7 +18,7 @@ to your `<config>/www/` folder and add the following to the `configuration.yaml`
 ```yaml
 lovelace:
   resources:
-    - url: /local/xiaomi-vacuum-card.js?v=4.1.0
+    - url: /local/xiaomi-vacuum-card.js?v=4.2.0
       type: module
 ```
 
