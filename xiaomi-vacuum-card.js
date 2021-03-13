@@ -284,14 +284,14 @@
             const value = isValidAttribute
                 ? computeFunc(this.stateObj.attributes[data.key]) + (data.unit || '')
                 : isValidEntityData
-                  ? computeFunc(this.stateObj[data.key]) + (data.unit || '')
-                  : this._hass.localize('state.default.unavailable');
+                    ? computeFunc(this.stateObj[data.key]) + (data.unit || '')
+                    : this._hass.localize('state.default.unavailable');
             const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
 
-            const hasDropdown = data.key + "_list" in this.stateObj.attributes;
+            const hasDropdown = `${data.key}_list` in this.stateObj.attributes;
 
-            return ((isValidAttribute || isValidEntityData) && hasDropdown) 
-                ? this.renderDropdown(attribute, data.key) 
+            return (hasDropdown && (isValidAttribute || isValidEntityData))
+                ? this.renderDropdown(attribute, data.key)
                 : attribute;
         }
 
@@ -312,14 +312,14 @@
                 : null;
         }
 
-        renderDropdown(attribute, attribute_name) {
-            const selected = this.stateObj.attributes[attribute_name];
-            const list = this.stateObj.attributes[attribute_name + "_list"];
+        renderDropdown(attribute, key) {
+            const selected = this.stateObj.attributes[key];
+            const list = this.stateObj.attributes[`${key}_list`];
 
             return html`
               <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
                 <paper-button slot="dropdown-trigger">${attribute}</paper-button>
-                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, attribute_name)}">
+                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, key)}">
                   ${list.map(item => html`<paper-item value="${item}" style="text-shadow: none;">${item}</paper-item>`)}
                 </paper-listbox>
               </paper-menu-button>
@@ -370,9 +370,9 @@
             this._hass = hass;
         }
 
-        handleChange(e, attribute_name) {
+        handleChange(e, key) {
             const mode = e.target.getAttribute('value');
-            this.callService('vacuum.set_' + attribute_name, {entity_id: this.stateObj.entity_id, [attribute_name]: mode});
+            this.callService(`vacuum.set_${key}`, {entity_id: this.stateObj.entity_id, [key]: mode});
         }
 
         callService(service, data = {entity_id: this.stateObj.entity_id}) {
