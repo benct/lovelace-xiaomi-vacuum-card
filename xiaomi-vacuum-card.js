@@ -289,9 +289,10 @@
             const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
 
             const hasDropdown = `${data.key}_list` in this.stateObj.attributes;
+            const service = data.hasOwnProperty('service') ? data.service : '';
 
             return (hasDropdown && (isValidAttribute || isValidEntityData))
-                ? this.renderDropdown(attribute, data.key)
+                ? this.renderDropdown(attribute, data.key, service)
                 : attribute;
         }
 
@@ -312,14 +313,14 @@
                 : null;
         }
 
-        renderDropdown(attribute, key) {
+        renderDropdown(attribute, key, service) {
             const selected = this.stateObj.attributes[key];
             const list = this.stateObj.attributes[`${key}_list`];
 
             return html`
               <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
                 <paper-button slot="dropdown-trigger">${attribute}</paper-button>
-                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, key)}">
+                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, key, service)}">
                   ${list.map(item => html`<paper-item value="${item}" style="text-shadow: none;">${item}</paper-item>`)}
                 </paper-listbox>
               </paper-menu-button>
@@ -370,9 +371,12 @@
             this._hass = hass;
         }
 
-        handleChange(e, key) {
+        handleChange(e, key, service) {
+            if(!service){
+                service = `vacuum.set_${key}`;
+            }
             const mode = e.target.getAttribute('value');
-            this.callService(`vacuum.set_${key}`, {entity_id: this.stateObj.entity_id, [key]: mode});
+            this.callService(service, {entity_id: this.stateObj.entity_id, [key]: mode});
         }
 
         callService(service, data = {entity_id: this.stateObj.entity_id}) {
