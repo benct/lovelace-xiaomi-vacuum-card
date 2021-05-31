@@ -24,24 +24,30 @@
     const attributes = {
         main_brush: {
             key: 'main_brush_left',
-            label: 'Main Brush: ',
-            unit: ' h',
+            label: 'Spazzola Principale: ',
+            unit: ' %',
         },
         side_brush: {
             key: 'side_brush_left',
-            label: 'Side Brush: ',
-            unit: ' h',
+            label: 'Spazzola Laterale: ',
+            unit: ' %',
         },
         filter: {
             key: 'filter_left',
-            label: 'Filter: ',
-            unit: ' h',
+            label: 'Filtro: ',
+            unit: ' %',
         },
         sensor: {
             key: 'sensor_dirty_left',
             label: 'Sensor: ',
             unit: ' h',
         },
+		water_level: {
+            key: 'sensor.vacuumname_water_level',
+            label: 'Livello Acqua: ',
+            unit: ' ',
+        },
+
     };
 
     const buttons = {
@@ -151,16 +157,16 @@
             },
             attributes: {
                 main_brush: {
-                    key: 'component_main_brush',
-                    compute: compute.divide100,
+                    key: 'sensor.vacuumname_brush',
+                    //compute: compute.divide100,
                 },
                 side_brush: {
-                    key: 'component_side_brush',
-                    compute: compute.divide100,
+                    key: 'sensor.vacuumname_sidebrush',
+                    //compute: compute.divide100,
                 },
                 filter: {
-                    key: 'component_filter',
-                    compute: compute.divide100,
+                    key: 'sensor.vacuumname_heap',
+                    //compute: compute.divide100,
                 },
                 sensor: false,
             },
@@ -266,7 +272,7 @@
                 </div>` : null}
                 ${this.config.show.attributes ? html`
                 <div class="grid-content grid-right">
-                  ${Object.values(this.config.attributes).filter(v => v).map(this.renderAttribute.bind(this))}
+                  ${Object.values(this.config.attributes).filter(v => v).map(this.renderAttribute2.bind(this))}
                 </div>` : null}
               </div>` : null}
               ${this.config.show.buttons ? html`
@@ -292,6 +298,24 @@
 
             return (hasDropdown && (isValidAttribute || isValidEntityData))
                 ? this.renderDropdown(attribute, data.key)
+                : attribute;
+        }
+
+        renderAttribute2(data) {
+            const computeFunc = data.compute || (v => v);
+            const isValidAttribute = data && data.key.replace('vacuumname',this.stateObj.attributes.friendly_name.toLowerCase()) in this.stateObj.attributes;
+            const isValidEntityData = data && data.key.replace('vacuumname',this.stateObj.attributes.friendly_name.toLowerCase()) in this._hass.states;
+            const value = isValidAttribute
+                ? computeFunc(this._hass.states[data.key.replace('vacuumname',this.stateObj.attributes.friendly_name.toLowerCase())].state) + (data.unit || '')
+                : isValidEntityData
+                    ? computeFunc(this._hass.states[data.key.replace('vacuumname',this.stateObj.attributes.friendly_name.toLowerCase())].state) + (data.unit || '')
+                    : this._hass.localize('state.default.unavailable');
+            const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
+
+            const hasDropdown = `${data.key.replace('vacuumname',this.stateObj.attributes.friendly_name.toLowerCase())}_list` in this.stateObj.attributes;
+
+            return (hasDropdown && (isValidAttribute || isValidEntityData))
+                ? this.renderDropdown(attribute, data.key.replace('vacuumname',this.stateObj.attributes.friendly_name.toLowerCase()))
                 : attribute;
         }
 
