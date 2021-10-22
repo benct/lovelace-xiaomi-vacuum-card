@@ -87,11 +87,27 @@
         xiaomi: {},
         xiaomi_mi: {
             attributes: {
-                main_brush: {key: 'main_brush_hours'},
-                side_brush: {key: 'side_brush_hours'},
-                filter: {key: 'hypa_hours'},
+                main_brush: { key: 'main_brush_hours' },
+                side_brush: { key: 'side_brush_hours' },
+                filter: { key: 'hypa_hours' },
                 sensor: {
                     key: 'mop_hours',
+                    label: 'Mop: ',
+                },
+            },
+        },
+        viomi: {
+            state: {
+                status: {
+                    key: 'state',
+                },
+            },
+            attributes: {
+                main_brush: { key: 'viomi_vacuum.main_brush_hours' },
+                side_brush: { key: 'viomi_vacuum.side_brush_hours' },
+                filter: { key: 'viomi_vacuum.hypa_hours' },
+                sensor: {
+                    key: 'viomi_vacuum.mop_hours',
                     label: 'Mop: ',
                 },
             },
@@ -103,10 +119,10 @@
                 },
             },
             attributes: {
-                main_brush: {key: 'mainBrush'},
-                side_brush: {key: 'sideBrush'},
-                filter: {key: 'filter'},
-                sensor: {key: 'sensor'},
+                main_brush: { key: 'mainBrush' },
+                side_brush: { key: 'sideBrush' },
+                filter: { key: 'filter' },
+                sensor: { key: 'sensor' },
             },
         },
         roomba: {
@@ -130,24 +146,24 @@
         robovac: {
             attributes: false,
             buttons: {
-                stop: {show: false},
-                spot: {show: true},
+                stop: { show: false },
+                spot: { show: true },
             },
         },
         ecovacs: {
             attributes: false,
             buttons: {
-                start: {service: 'vacuum.turn_on'},
-                pause: {service: 'vacuum.stop'},
-                stop: {service: 'vacuum.turn_off', show: false},
-                spot: {show: true},
+                start: { service: 'vacuum.turn_on' },
+                pause: { service: 'vacuum.stop' },
+                stop: { service: 'vacuum.turn_off', show: false },
+                spot: { show: true },
             },
         },
         deebot: {
             buttons: {
-                start: {service: 'vacuum.turn_on'},
-                pause: {service: 'vacuum.stop'},
-                stop: {service: 'vacuum.turn_off'},
+                start: { service: 'vacuum.turn_on' },
+                pause: { service: 'vacuum.stop' },
+                stop: { service: 'vacuum.turn_off' },
             },
             attributes: {
                 main_brush: {
@@ -167,14 +183,14 @@
         },
         deebot_slim: {
             buttons: {
-                start: {service: 'vacuum.turn_on'},
-                pause: {service: 'vacuum.stop'},
-                stop: {service: 'vacuum.turn_off'},
+                start: { service: 'vacuum.turn_on' },
+                pause: { service: 'vacuum.stop' },
+                stop: { service: 'vacuum.turn_off' },
             },
             attributes: {
                 main_brush: false,
-                side_brush: {key: 'component_side_brush'},
-                filter: {key: 'component_filter'},
+                side_brush: { key: 'component_side_brush' },
+                filter: { key: 'component_filter' },
                 sensor: false,
             },
         },
@@ -256,8 +272,8 @@
             return this.stateObj ? html`
             <ha-card class="background" style="${this.config.styles.background}">
               ${this.config.show.name ?
-                html`<div class="title">${this.config.name || this.stateObj.attributes.friendly_name}</div>`
-                : null}
+                    html`<div class="title">${this.config.name || this.stateObj.attributes.friendly_name}</div>`
+                    : null}
               ${(this.config.show.state || this.config.show.attributes) ? html`
               <div class="grid" style="${this.config.styles.content}" @click="${() => this.fireEvent('hass-more-info')}">
                 ${this.config.show.state ? html`
@@ -372,10 +388,10 @@
 
         handleChange(e, key) {
             const mode = e.target.getAttribute('value');
-            this.callService(`vacuum.set_${key}`, {entity_id: this.stateObj.entity_id, [key]: mode});
+            this.callService(`vacuum.set_${key}`, { entity_id: this.stateObj.entity_id, [key]: mode });
         }
 
-        callService(service, data = {entity_id: this.stateObj.entity_id}) {
+        callService(service, data = { entity_id: this.stateObj.entity_id }) {
             const [domain, name] = service.split('.');
             this._hass.callService(domain, name, data);
         }
@@ -386,7 +402,7 @@
                 cancelable: options.cancelable || true,
                 composed: options.composed || true,
             });
-            event.detail = {entityId: this.stateObj.entity_id};
+            event.detail = { entityId: this.stateObj.entity_id };
             this.dispatchEvent(event);
         }
 
