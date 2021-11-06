@@ -289,10 +289,9 @@
             const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
 
             const hasDropdown = `${data.key}_list` in this.stateObj.attributes;
-            const service = data.hasOwnProperty('service') ? data.service : '';
 
             return (hasDropdown && (isValidAttribute || isValidEntityData))
-                ? this.renderDropdown(attribute, data.key, service)
+                ? this.renderDropdown(attribute, data.key, data.service)
                 : attribute;
         }
 
@@ -308,7 +307,9 @@
                 ? html`<ha-icon-button
                     @click="${() => this.callService(data.service, data.service_data)}"
                     title="${data.label || ''}"
-                    style="${this.config.styles.icon}"><ha-icon style="display:flex;" icon="${data.icon}"></ha-icon></ha-icon-button>`
+                    style="${this.config.styles.icon}">
+                      <ha-icon style="display:flex;" icon="${data.icon}"></ha-icon>
+                    </ha-icon-button>`
                 : null;
         }
 
@@ -371,11 +372,8 @@
         }
 
         handleChange(e, key, service) {
-            if(!service){
-                service = `vacuum.set_${key}`;
-            }
             const mode = e.target.getAttribute('value');
-            this.callService(service, {entity_id: this.stateObj.entity_id, [key]: mode});
+            this.callService(service || `vacuum.set_${key}`, {entity_id: this.stateObj.entity_id, [key]: mode});
         }
 
         callService(service, data = {entity_id: this.stateObj.entity_id}) {

@@ -45,9 +45,9 @@ to `<config>/www/img/` or configure your own preferred path.
 | entity | string | **Required** | `vacuum.my_xiaomi_vacuum`
 | name | string/bool | `friendly_name` | Override friendly name (set to `false` to hide)
 | image | string/bool | `false` | Set path/filename of background image (i.e. `/local/img/vacuum.png`)
-| state | [Entity Data](#entity data) | *(see below)* | Set to `false` to hide all states
-| attributes | [Entity Data](#entity data) | *(see below)* | Set to `false` to hide all attributes
-| buttons | [Button Data](#button data) | *(see below)* | Set to `false` to hide button row
+| state | [Entity Data](#entity-data) | *(see below)* | Set to `false` to hide all states
+| attributes | [Entity Data](#entity-data) | *(see below)* | Set to `false` to hide all attributes
+| buttons | [Button Data](#button-data) | *(see below)* | Set to `false` to hide button row
 
 ### Entity Data
 
