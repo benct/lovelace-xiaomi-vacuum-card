@@ -1,7 +1,7 @@
 {
   "xiaomi-vacuum-card": {
-    "updated_at": "2021-03-13",
-    "version": "4.2.0",
+    "updated_at": "2021-11-07",
+    "version": "4.3.0",
     "remote_location": "https://raw.githubusercontent.com/benct/lovelace-xiaomi-vacuum-card/master/xiaomi-vacuum-card.js",
     "visit_repo": "https://github.com/benct/lovelace-xiaomi-vacuum-card",
     "changelog": "https://github.com/benct/lovelace-xiaomi-vacuum-card/blob/master/CHANGELOG.md"

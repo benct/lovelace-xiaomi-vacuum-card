@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.3.0
+
+- **Added:** Support custom service on dropdown attributes (#71)
+- **Fixed:** Icons not showing after change to `ha-button-icon` (#86, #87)
+
 ## 4.2.0
 
 - **Added:** Support using any data values from vacuum entity (#69)
