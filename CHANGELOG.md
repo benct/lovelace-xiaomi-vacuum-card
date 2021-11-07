@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.4.0
+
+*Note:* HA version `2021.11.0` or higher may be required if you use the standard `xiamoi` vacuum integration.
+
+- **Added:** Support vacuum data from separate sensor entities (#72, #84)
+
 ## 4.3.0
 
 - **Added:** Support custom service on dropdown attributes (#71)
