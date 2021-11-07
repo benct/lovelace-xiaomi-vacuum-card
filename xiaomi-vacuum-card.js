@@ -81,10 +81,18 @@
     const compute = {
         trueFalse: v => (v === true ? 'Yes' : (v === false ? 'No' : '-')),
         divide100: v => Math.round(Number(v) / 100),
+        secToHour: v => Math.floor(Number(v) / 60 / 60),
     }
 
     const vendors = {
-        xiaomi: {},
+        xiaomi: {
+            attributes: {
+                main_brush: {compute: compute.secToHour},
+                side_brush: {compute: compute.secToHour},
+                filter: {compute: compute.secToHour},
+                sensor: {compute: compute.secToHour},
+            }
+        },
         xiaomi_mi: {
             attributes: {
                 main_brush: {key: 'main_brush_hours'},
@@ -98,9 +106,7 @@
         },
         valetudo: {
             state: {
-                status: {
-                    key: 'state',
-                },
+                status: {key: 'state'},
             },
             attributes: {
                 main_brush: {key: 'mainBrush'},
@@ -278,19 +284,25 @@
 
         renderAttribute(data) {
             const computeFunc = data.compute || (v => v);
+            const isValidSensorData = data && `${this.config.sensorEntity}_${data.key}` in this._hass.states;
             const isValidAttribute = data && data.key in this.stateObj.attributes;
             const isValidEntityData = data && data.key in this.stateObj;
 
-            const value = isValidAttribute
-                ? computeFunc(this.stateObj.attributes[data.key]) + (data.unit || '')
-                : isValidEntityData
-                    ? computeFunc(this.stateObj[data.key]) + (data.unit || '')
-                    : this._hass.localize('state.default.unavailable');
-            const attribute = html`<div>${data.icon && this.renderIcon(data)}${(data.label || '') + value}</div>`;
+            const value = isValidSensorData
+                ? computeFunc(this._hass.states[`${this.config.sensorEntity}_${data.key}`].state) + (data.unit || '')
+                : isValidAttribute
+                    ? computeFunc(this.stateObj.attributes[data.key]) + (data.unit || '')
+                    : isValidEntityData
+                        ? computeFunc(this.stateObj[data.key]) + (data.unit || '')
+                        : null;
+            const attribute = html`<div>
+                ${data.icon && this.renderIcon(data)}
+                ${(data.label || '') + (value !== null ? value : this._hass.localize('state.default.unavailable'))}
+            </div>`;
 
             const hasDropdown = `${data.key}_list` in this.stateObj.attributes;
 
-            return (hasDropdown && (isValidAttribute || isValidEntityData))
+            return (hasDropdown && value !== null)
                 ? this.renderDropdown(attribute, data.key, data.service)
                 : attribute;
         }
@@ -347,6 +359,7 @@
             this.config = {
                 name: config.name,
                 entity: config.entity,
+                sensorEntity: `sensor.${config.entity.split('.')[1]}`,
                 show: {
                     name: config.name !== false,
                     state: config.state !== false,
