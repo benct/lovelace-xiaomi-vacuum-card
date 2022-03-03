@@ -248,13 +248,9 @@
 .grid-left {
   text-align: left;
   font-size: 110%;
-  padding-left: 10px;
-  border-left: 2px solid var(--primary-color);
 }
 .grid-right {
   text-align: right;
-  padding-right: 10px;
-  border-right: 2px solid var(--primary-color);
 }`;
         }
 
@@ -303,7 +299,7 @@
             const hasDropdown = `${data.key}_list` in this.stateObj.attributes;
 
             return (hasDropdown && value !== null)
-                ? this.renderDropdown(attribute, data.key, data.service)
+                ? this.renderDropdown(this.renderIcon(data), attribute, data.key, data.service)
                 : attribute;
         }
 
@@ -325,18 +321,20 @@
                 : null;
         }
 
-        renderDropdown(attribute, key, service) {
+        renderDropdown(icon, attribute, key, service) {
             const selected = this.stateObj.attributes[key];
             const list = this.stateObj.attributes[`${key}_list`];
-
             return html`
-              <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
-                <paper-button slot="dropdown-trigger">${attribute}</paper-button>
-                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, key, service)}">
-                  ${list.map(item => html`<paper-item value="${item}" style="text-shadow: none;">${item}</paper-item>`)}
-                </paper-listbox>
-              </paper-menu-button>
-            `;
+		<ha-select
+          .label=${(key.replace('_',' '))}
+          .value=${selected}
+          @selected=${e => this.handleChange(e, key, service)}
+          @click=${e => e.stopPropagation()}
+          @closed=${e => e.stopPropagation()}
+        >
+          ${list.map((o) => html`<mwc-list-item .value=${o}>${icon}${o}</mwc-list-item>`)}
+        </ha-select>
+		`;
         }
 
         getCardSize() {
@@ -385,7 +383,7 @@
         }
 
         handleChange(e, key, service) {
-            const mode = e.target.getAttribute('value');
+            const mode = e.target.value;
             this.callService(service || `vacuum.set_${key}`, {entity_id: this.stateObj.entity_id, [key]: mode});
         }
 
