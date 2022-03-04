@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.5.0
+
+*Note:* HA version `2022.3.0` or higher required to support new dropdown elements.
+
+- **Fixed:** Replace unsupported paper elements with MWC dropdown menu (#99, #100)
+
 ## 4.4.0
 
 *Note:* HA version `2021.11.0` or higher may be required if you use the standard `xiamoi` vacuum integration.
