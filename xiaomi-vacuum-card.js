@@ -326,17 +326,26 @@
         }
 
         renderDropdown(attribute, key, service) {
-            const selected = this.stateObj.attributes[key];
             const list = this.stateObj.attributes[`${key}_list`];
 
             return html`
-              <paper-menu-button slot="dropdown-trigger" @click="${e => e.stopPropagation()}" style="padding: 0">
-                <paper-button slot="dropdown-trigger">${attribute}</paper-button>
-                <paper-listbox slot="dropdown-content" selected="${list.indexOf(selected)}" @click="${e => this.handleChange(e, key, service)}">
-                  ${list.map(item => html`<paper-item value="${item}" style="text-shadow: none;">${item}</paper-item>`)}
-                </paper-listbox>
-              </paper-menu-button>
-            `;
+                <div style="position: relative" @click=${e => e.stopPropagation()}>
+                    <ha-button @click=${() => this.toggleMenu(key)}>
+                      ${attribute}
+                    </ha-button>
+                    <mwc-menu
+                      @selected=${e => this.handleChange(list[e.detail.index], key, service)}
+                      id=${`xvc-menu-${key}`}
+                      activatable
+                      corner="BOTTOM_START">
+                        ${list.map(item => html`<mwc-list-item value=${item}>${item}</mwc-list-item>`)}
+                    </mwc-menu>
+                </div>`;
+        }
+
+        toggleMenu(key) {
+            const menu = this.shadowRoot.querySelector(`#xvc-menu-${key}`);
+            menu.open = !menu.open;
         }
 
         getCardSize() {
@@ -384,8 +393,7 @@
             this._hass = hass;
         }
 
-        handleChange(e, key, service) {
-            const mode = e.target.getAttribute('value');
+        handleChange(mode, key, service) {
             this.callService(service || `vacuum.set_${key}`, {entity_id: this.stateObj.entity_id, [key]: mode});
         }
 
