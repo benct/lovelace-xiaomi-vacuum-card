@@ -205,7 +205,7 @@
                 },
                 sensor: {
                     key: 'waterbox',
-                    label: 'Mop',
+                    label: 'Mop: ',
                     unit: ''
                 }
             }
