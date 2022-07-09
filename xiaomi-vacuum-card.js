@@ -184,6 +184,32 @@
                 sensor: false,
             },
         },
+        dreame: {
+            buttons: {
+                start: {service: 'vacuum.turn_on'},
+                pause: {service: 'vacuum.stop'},
+                stop: {service: 'vacuum.turn_off'},
+            },
+            attributes: {
+                main_brush: {
+                    key: 'main_brush_life_level',
+                    unit: '%'
+                },
+                side_brush: {
+                    key: 'side_brush_life_level',
+                    unit: '%'
+                },
+                filter: {
+                    key: 'filter_life_level',
+                    unit: '%'
+                },
+                sensor: {
+                    key: 'waterbox',
+                    label: 'Mop: ',
+                    unit: ''
+                }
+            }
+        },
         neato: {
             state: {
                 mode: false,
