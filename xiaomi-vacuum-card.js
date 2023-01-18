@@ -82,6 +82,7 @@
         trueFalse: v => (v === true ? 'Yes' : (v === false ? 'No' : '-')),
         divide100: v => Math.round(Number(v) / 100),
         secToHour: v => Math.floor(Number(v) / 60 / 60),
+        capitalize: v => v.charAt(0).toUpperCase() + v.slice(1),
     }
 
     const vendors = {
@@ -101,6 +102,33 @@
                 sensor: {
                     key: 'mop_hours',
                     label: 'Mop: ',
+                },
+            },
+        },
+        roborock_s7_maxv: {
+            state:{
+                status: {
+                    key: 'state',
+                    compute: compute.capitalize,
+                }
+            },
+            attributes: {
+                main_brush: {
+                    key: 'main_brush_remaining',
+                    compute: compute.secToHour
+                },
+                side_brush: {
+                    key: 'side_brush_remaining',
+                    compute: compute.secToHour
+                },
+                filter: {
+                    key: 'filter_remaining',
+                    compute: compute.secToHour
+                },
+                sensor: {
+                    key: 'sensor_dirty_remaining',
+                    compute: compute.secToHour,
+                    label: 'Sensor: '
                 },
             },
         },
@@ -284,12 +312,13 @@
 
         renderAttribute(data) {
             const computeFunc = data.compute || (v => v);
-            const isValidSensorData = data && `${this.config.sensorEntity}_${data.key}` in this._hass.states;
+            const entityId = data && (data.entityId ?  `${data.entityId}` : `${this.config.sensorEntity}_${data.key}`)
+            const isValidSensorData = data && `${entityId}` in this._hass.states;
             const isValidAttribute = data && data.key in this.stateObj.attributes;
             const isValidEntityData = data && data.key in this.stateObj;
 
             const value = isValidSensorData
-                ? computeFunc(this._hass.states[`${this.config.sensorEntity}_${data.key}`].state) + (data.unit || '')
+                ? computeFunc(this._hass.states[`${entityId}`].state) + (data.unit || '')
                 : isValidAttribute
                     ? computeFunc(this.stateObj.attributes[data.key]) + (data.unit || '')
                     : isValidEntityData
